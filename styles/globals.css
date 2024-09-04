@@ -1,0 +1,90 @@
+@font-face {
+  font-family: 'Jost';
+	font-weight: 400;
+  font-stretch: normal;
+	font-style: normal;
+	src: url('../public/assets/fonts/Jost-Variable.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-stretch: normal;
+	font-style: normal;
+	src: url('../public/assets/fonts/Lora-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Merriweather';
+  font-stretch: normal;
+	font-style: normal;
+	src: url('../public/assets/fonts/Merriweather-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-stretch: normal;
+	font-style: normal;
+	src: url('../public/assets/fonts/AtkinsonHyperlegible-Regular.ttf') format('truetype');
+}
+
+@media only screen and (min-width: 900px) {
+  :root {
+    --font-title:34px;
+    --font-extra-large:24px;
+    --font-large:20px;
+    --font-default: 18px;
+    --font-smallish: 16px;
+    --font-small:14px;
+    --font-extra-small:12px;
+
+    --font-note:15px;
+  }
+}
+@media only screen and (max-width: 900px) {
+  :root {
+    --font-title:30px;
+    --font-extra-large:23px;
+    --font-large:19px;
+    --font-default: 17px;
+    --font-smallish: 14px;
+    --font-small:13px;
+    --font-extra-small:11px;
+
+    --font-note:15px;
+  }
+  #article {
+    padding:20px 10px;
+  }
+}
+
+:root {
+   --light-background-color:white;
+   --dark-background-color:rgb(21, 26, 41);
+
+   --primary-color:rgb(173, 176, 187);
+   --secondary-color:rgb(120, 123, 134);
+   --link: rgb(180, 124, 231);
+   --contrast: rgb(216, 220, 230);
+   --high-contrast: rgb(239, 243, 255);
+   --very-high-contrast: white;
+
+   --primary-color-dark: rgb(20, 19, 19);
+   --contrast-dark: rgb(40, 41, 44);
+   --high-contrast-dark: black;
+   --link-dark: rgb(28, 35, 102);
+
+   --more-line-width:0px;
+   --more-line-height:0px;
+   --more-line-animation-name: oscillating-opacity;
+}
+
+
+body {
+  background-color: var(--dark-background-color);
+  margin:0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  font-family: 'Jost', Tahoma, Geneva, Verdana, sans-serif;
+}

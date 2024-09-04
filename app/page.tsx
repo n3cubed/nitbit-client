@@ -1,95 +1,67 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
 
-export default function Home() {
+import MainButton from '../components/MainButton/MainButton';
+import ActivityGraph from '../components/ActivityGraph/ActivityGraph';
+import Icon from '../components/Icon/Icon';
+import Logo from '../components/Logo/Logo';
+import Posts from '../components/Posts/Posts';
+import styles from './page.module.css';
+import { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation'
+
+const Home: React.FC = () => {
+  const router = useRouter()
+  const [isExpandPosts, setIsExpandPosts] = useState(false);
+  const [upperHomeHeight, setUpperHomeHeight] = useState(0);
+
+  const upperHomeRef = useRef<HTMLDivElement>(null);
+
+
+  useEffect(() => {
+    if (upperHomeRef.current) {
+      setUpperHomeHeight(upperHomeRef.current.clientHeight);
+    }
+  })
+
+  const handleExpandPosts = () => {
+    setIsExpandPosts(true);
+    setTimeout(()=>{
+      router.push('/posts');
+    }, 900)
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <div ref={upperHomeRef} className={`${isExpandPosts ? styles['expanded'] : ''} ${styles['upper-home']}`} style={{ marginTop: isExpandPosts ? `${-upperHomeHeight}px` : undefined }}>
+        <div className={styles['main-buttons']}>
+          <MainButton color='#ff8e2b' text='BULLETIN' href='/bulletin' />
+          <MainButton color='#387eb6' text='POSTS' href='/posts' />
+          <MainButton color='#38ac54' text='RESOURCES' href='/resources' />
         </div>
+
+        <div style={{ flexGrow: 1, marginLeft: '20px', marginRight: '50px' }}>
+          {/* <ActivityGraph /> */}
+        </div>
+
+
+        <div onClick={handleExpandPosts} className={ `${styles['expand-posts']} ${isExpandPosts ? styles['expanded'] : ''}` }style={{ position: 'absolute', bottom: '-85px', right: '20px', zIndex: 7, filter: 'brightness(0) invert(1)' }}>
+          <Icon name='arrow-up-right-light2.svg' alt='expand' width={20}></Icon>
+        </div>
+
+        <div style={{ position: 'relative', paddingRight: '20px' }}>
+          <Logo />
+        </div>
+
+      </div>
+      <div style={{ margin:'auto' }}>
+        <Posts />
       </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div style={{ position: 'fixed', right: '16px', bottom: '16px' }}>
+        <Icon name='github.svg' alt='github' href='https://github.com/ncubed1' width={30} />
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </>
   );
 }
+
+export default Home;

@@ -1,0 +1,30 @@
+.post-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin-top: 30px;
+  font-family: 'Jost', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 40em;
+}
+
+.post-preview-title:hover {
+  text-decoration: underline;
+}
+
+.post-preview-title {
+  text-decoration: none;
+  font-size: var(--font-extra-large);
+  color: var(--high-contrast);
+  font-family: 'Lora', sans-serif;
+}
+
+.post-preview-date {
+  font-size: var(--font-smallish);
+  color: var(--high-contrast);
+  opacity: 70%;
+}
+
+.post-preview-summary {
+  font-size: var(--font-default);
+  color: var(--high-contrast);
+}

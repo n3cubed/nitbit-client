@@ -1,0 +1,40 @@
+.main-button {
+  display:flex;
+  flex-direction: row;
+  text-decoration:none;
+  width:max-content;
+}
+
+.main-button-large {
+  position:relative;
+  left:-3px;
+  font-family: 'Jost', sans-serif;
+  letter-spacing: 2px;
+  background-color:var(--high-contrast-dark);
+  color: var(--very-high-contrast);
+  border-radius: 0px;
+  padding: 7px 18px;
+  text-align: center;
+  text-decoration: none;
+  font-size: var(--font-extra-large);
+  margin: 0;
+  cursor: pointer;
+  transition: padding 0.3s, letter-spacing 0.2s;
+}
+
+.main-button-small {
+  width:3px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  opacity:70%;
+  transition: width 0.3s;
+}
+
+.main-button:hover > .main-button-small {
+  width: 10px;
+}
+
+.main-button:hover > .main-button-large {
+  letter-spacing: 3px;
+  padding: 7px 20px;
+}

@@ -1,0 +1,21 @@
+.categorical-symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--primary-color-dark);
+  font-family: 'Lora';
+  font-weight: bold;
+  width:max-content;
+  font-size: var(--font-extra-large);
+  width: 1.5em;
+  height: 1.5em;
+  border-radius:2px;
+
+  user-select: none;
+}
+
+.categorical-symbol.small {
+  width: 0.9em;
+  height: 0.9em;
+}

@@ -1,0 +1,22 @@
+* title: nitbit
+* postName: nitbit
+* last_modified: 2 days ago
+* category: Release
+* link: https://nitbit.dev
+* link: https://github.com
+* summary: summary
+*
+{Main}
+hi from main
+  {Body}
+  hi from body
+    {Body}
+    hi from body2
+      {Body}
+      hi from body2
+    {Body}
+    hi from body2
+  hi
+main again
+e
+e

@@ -1,0 +1,8 @@
+.logo {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  font-size: 50px;
+  color: black;
+  margin: 10px;
+  user-select: none;
+  text-decoration: none;
+}

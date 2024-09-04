@@ -1,0 +1,29 @@
+.display {
+  font-size: var(--font-default);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* width: max-content; */
+  color: var(--high-contrast);
+  margin-top: 5px;
+  text-decoration: none;
+  padding:0;
+}
+
+
+.display:visited {
+  color: var(--link);
+}
+
+
+.display:hover {
+  text-decoration: underline;
+}
+
+.icon {
+  fill: var(--high-contrast);
+}
+
+.display > .icon {
+  margin-right: 0.3em;
+}
