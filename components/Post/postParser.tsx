@@ -1,19 +1,11 @@
 import styles from './Post.module.css'
+import React from 'react'
+import { IconProps } from '../Icon/Icon'
 
-interface Post {
-  title: string
-  postName: string
-  category: string
-  lastUpdated: string
-  links: string[]
-  summary: string
-  body: Section
-}
-
-class Section {
+export class Section {
   tag: Tag;
   content: Array<string | Section>;
-  properties: { [key: string]: string };
+  properties: { [key: string]: any };
 
   constructor(
     tag: Tag,
@@ -26,18 +18,27 @@ class Section {
   }
 
   generateComponent(): React.ReactNode {
-    const generateComponentInner = (section: Section, itemCallback?: (parseItem: () => React.ReactNode, item: string | Section, index: number) => React.ReactNode): React.ReactNode => {
+    // console.log(this.tag)
+    const generateComponentInner = (
+      section: Section,
+      itemCallback?: (
+        parseItem: () => React.ReactNode,
+        item: string | Section,
+        index: number
+      ) => React.ReactNode
+    ): React.ReactNode => {
       return (
         <>
           {
             section.content.map((item, index) => {
               function parseItem() {
                 if (typeof item === 'string')
-                  return <p key={index}>{item}</p>
+                  return <p>{item}</p>
                 else
-                  item.generateComponent()
+                  return item.generateComponent()
               }
-              itemCallback ? itemCallback?.(parseItem, item, index) : parseItem();
+              const result = itemCallback ? itemCallback(parseItem, item, index) : parseItem();
+              return <React.Fragment key={index}>{result}</React.Fragment>
             }
           )}
         </>
@@ -46,6 +47,7 @@ class Section {
 
     switch (this.tag) {
       case Tag.Body:
+
         const { title, postName ,category, lastUpdated, links, summary, author } = this.properties;
         return (
           <div className={styles['article']}>
@@ -66,16 +68,11 @@ class Section {
       case Tag.OList:
         return (
           <ol>
-            {
-              generateComponentInner(
-                this,
-                (parseItem, item, index) => {
-                  return <li>{index}{parseItem()}</li>
-                }
-              )
-            }
+            {generateComponentInner(this, (parseItem, item, index) => {
+              return <li key={index}>{parseItem()}</li>;
+            })}
           </ol>
-        )
+        );
       case Tag.UList:
       case Tag.Reveal:
       case Tag.RevealButton:
@@ -100,6 +97,7 @@ enum Tag {
   CosmeticImage,
   Distinct,
   Hyperlink,
+  Code,
 };
 
 function countIndents(line: string): number {
@@ -107,69 +105,73 @@ function countIndents(line: string): number {
   return Math.floor(leadingSpaces / 2);
 }
 
-export function parseRawPost(input: string): Post {
-
-  const result = {
-    title: '',
-    postName: '',
-    category: '',
-    lastUpdated: '',
-    links: [''],
-    summary: '',
-    body: new Section(Tag.Body, [], {})
-  }
+export function parseRawPost(input: string): Section {
+  const result = new Section(Tag.Body, [], {})
 
   const tagRegex = /\{([^}]*)\}/;
 
   let stack: Section[] = []
-  let currentSection: Section = result.body;
-  let currentIndent: number = 0;
-  let previousIndent: number = 0;
+  let currentSection: Section = result;
+  let currentSectionIndent: number = -1;
 
   const lines = input.trim().split('\n');
 
   for (let [index, line] of lines.entries()) {
-    currentIndent = countIndents(line);
+    const currentIndent = countIndents(line);
+    // console.log(line)
     line = line.trim();
 
     if (line.startsWith('*')) {
       const [key, ...rest] = line.slice(2).split(': ');
-      const value = rest.join(': ');
-      currentSection.properties[key] = value
+      if (key && rest) {
+        const value = rest.join(': ');
+        if (key === 'url') {
 
-      // if (key === 'title') result.title = value;
-      // else if (key === 'post_name') result.postName = value;
-      // else if (key === 'last_modified') result.lastUpdated = value;
-      // else if (key === 'category') result.category = value;
-      // else if (key === 'link') result.links.push(value);
-      // else if (key === 'summary') result.summary = value;
+          const urlProps = value.split(', ');
+          const url: IconProps = {
+            name: urlProps[0],
+            alt: urlProps[1],
+            href: urlProps[2],
+          }
+          currentSection.properties['urls'] = (currentSection.properties['urls'] || []).concat(url);
+        }
+        else currentSection.properties[key] = value;
+      }
       continue
     }
 
-    if (currentIndent < previousIndent) {
-      const diff = previousIndent - currentIndent - 1;
+    // console.log({currentIndent})
+    if (currentIndent <= currentSectionIndent) {
+      const diff = currentSectionIndent - currentIndent;
+      // console.log({diff})
+
       stack.splice(-diff, diff);
       currentSection = stack.pop() as Section;
+
+      currentSectionIndent = currentIndent - 1;
     }
+
+    if (currentIndent > currentSectionIndent + 1)
+      throw new Error(`No tag found on line ${index+1} at indent ${currentSectionIndent+1}`);
 
     const match = line.match(tagRegex);
     if (match) {
       const tag = match[1];
       if (!(tag in Tag))
-        throw new Error(`No tag defined for ${tag}`)
-      if (currentIndent > previousIndent + 1)
-        throw new Error(`No tag found on line ${index+1} at indent ${previousIndent+1}`)
-      if (currentIndent === previousIndent + 1)
-        stack.push(currentSection)
+        throw new Error(`No tag defined for ${tag}`);
+
+      if (currentIndent === currentSectionIndent + 1)
+        stack.push(currentSection);
 
       const newSection: Section = new Section(Tag[tag as keyof typeof Tag], [], {})
       currentSection.content.push(newSection)
       currentSection = newSection
+
+      currentSectionIndent = currentIndent;
     } else {
       currentSection.content.push(line)
     }
-
-    previousIndent = currentIndent;
   }
+  // console.dir(result)
   return result
 }

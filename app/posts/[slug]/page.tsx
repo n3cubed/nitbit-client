@@ -1,16 +1,17 @@
-'use client'
+import { posts, parsedPosts } from '../../../components/Post/parsedPosts'
 
-import { useParams } from 'next/navigation';
 import Post from '../../../components/Post/Post'
 
-function PostPage() {
-  const params = useParams();
-  const { slug } = params;
+export async function generateStaticParams() {
+  return posts.map((postname) => ({
+    slug: postname
+  }));
+}
 
+const PostPage: React.FC<{ params: { slug: string }}> = ({ params }) => {
+  const post = parsedPosts.filter((parsedPost) => parsedPost.properties.postName === params.slug)[0];
   return (
-    <div>
-      <Post name={`${slug}`}></Post>
-    </div>
+    <Post post={post}></Post>
   );
 }
 

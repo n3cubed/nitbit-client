@@ -4,7 +4,7 @@ import MainButton from '../components/MainButton/MainButton';
 import ActivityGraph from '../components/ActivityGraph/ActivityGraph';
 import Icon from '../components/Icon/Icon';
 import Logo from '../components/Logo/Logo';
-import Posts from '../components/Posts/Posts';
+import Posts from '../components/Post/Posts';
 import styles from './page.module.css';
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation'
@@ -14,20 +14,20 @@ const Home: React.FC = () => {
   const [isExpandPosts, setIsExpandPosts] = useState(false);
   const [upperHomeHeight, setUpperHomeHeight] = useState(0);
 
-  const upperHomeRef = useRef<HTMLDivElement>(null);
 
+  const upperHomeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (upperHomeRef.current) {
       setUpperHomeHeight(upperHomeRef.current.clientHeight);
     }
-  })
+  }, [upperHomeRef])
 
   const handleExpandPosts = () => {
     setIsExpandPosts(true);
     setTimeout(()=>{
       router.push('/posts');
-    }, 900)
+    }, 1000)
   };
 
   return (
@@ -53,7 +53,7 @@ const Home: React.FC = () => {
         </div>
 
       </div>
-      <div style={{ margin:'auto' }}>
+      <div style={{ position: 'relative', margin:'auto', right: '-30px' }}>
         <Posts />
       </div>
 

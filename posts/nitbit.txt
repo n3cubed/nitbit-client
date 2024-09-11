@@ -1,22 +1,37 @@
 * title: nitbit
 * postName: nitbit
-* last_modified: 2 days ago
+* lastUpdated: updated 2 months ago
 * category: Release
-* link: https://nitbit.dev
-* link: https://github.com
-* summary: summary
+* url: link.svg, nitbit.dev, https://nitbit.dev
+* url: github.svg, nitbit.dev, https://github.com
+* summary: Personal website to showcase stuff.
+* author: me
 *
-{Main}
-hi from main
-  {Body}
-  hi from body
-    {Body}
-    hi from body2
-      {Body}
-      hi from body2
-    {Body}
-    hi from body2
-  hi
-main again
-e
-e
+WIP. Things to add:
+{OList}
+  Show the path on the bottom left
+  Show github icon on the bottom right consistently
+  Sort by category
+  Post about fishsticks
+  Replace logo with graph
+  Work on the backend
+  Style the posts
+
+
+{Note}
+  Hello from note
+{Exhibit}
+  * title: Something
+  Hello from exhibit
+{UList}
+  listitem1
+  listitem2
+{Reveal}
+{RevealButton}
+{RevealContent}
+{CosmeticImage}
+{Distinct}
+  Distinct text
+{Hyperlink}
+{Code}
+  Code

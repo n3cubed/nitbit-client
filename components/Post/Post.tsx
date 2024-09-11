@@ -1,10 +1,7 @@
-import { parseRawPost } from './postParser'
+import { Section } from './postParser'
 
-const Post: React.FC<{ name: string }> = ({ name }) => {
-	const rawContent = require(`../../posts/${name}.txt`).default
-	const post = parseRawPost(rawContent);
-
-	const postComponent = post.body.generateComponent();
+const Post: React.FC<{ post: Section }> = ({ post }) => {
+	const postComponent = post.generateComponent();
 
 	return <>{postComponent}</>
 }

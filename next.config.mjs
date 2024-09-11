@@ -1,6 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
   webpack(config) {
+    // config.resolve = {
+    //   ...config.resolve,
+    //   fallback: {
+    //     "fs": false,
+    //     "path": false,
+    //     "os": false,
+    //   }
+    // }
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],

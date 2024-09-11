@@ -20,11 +20,12 @@
 
 .post-preview-date {
   font-size: var(--font-smallish);
-  color: var(--high-contrast);
-  opacity: 70%;
+  color: var(--primary-color);
 }
 
 .post-preview-summary {
   font-size: var(--font-default);
   color: var(--high-contrast);
+  margin-top: 2px;
+  margin-bottom: 12px;
 }

@@ -9,7 +9,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  transition: margin-top 1s ease, box-shadow 0.5s 0.8s;
+  transition: margin-top 1s ease, box-shadow 0.4s ease 0.8s;
 }
 
 .main-buttons {
@@ -28,7 +28,7 @@
 
 .expand-posts {
   /* transition: visibility 0.9s linear 0.9s, opacity 0.4s ease-out 0.8s, transform 1s ease-out; */
-  transition: visibility 0.9s linear 0.9s, opacity 0.4s ease-out 0.8s, transform 1s cubic-bezier(1,0,1,.63);
+  transition: visibility 0.1s linear 0.9s, opacity 0.4s ease-out 0.8s, transform 0.9s cubic-bezier(1,0,1,.63);
   cursor: pointer;
   transform: rotateZ(-45deg)
 }
@@ -36,5 +36,5 @@
 .expand-posts.expanded {
   visibility: none;
   opacity:0;
-  transform: translateY(-80px) rotateZ(-45deg)
+  transform: translateY(-84px) rotateZ(-45deg)
 }
