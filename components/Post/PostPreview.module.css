@@ -7,8 +7,14 @@
   max-width: 40em;
 }
 
+.new {
+  animation: 200ms ease-out 0s 1 fade-in forwards;
+}
+
 .post-preview-title:hover {
   text-decoration: underline;
+  text-underline-offset: 2px;
+  color: var(--high-contrast);
 }
 
 .post-preview-title {
@@ -16,6 +22,9 @@
   font-size: var(--font-extra-large);
   color: var(--high-contrast);
   font-family: 'Lora', sans-serif;
+  transition: color 200ms, text-decoration-color 80ms ease, text-underline-offset 100ms ease;
+  text-underline-offset: 0;
+  text-decoration-color:transparent;
 }
 
 .post-preview-date {
@@ -28,4 +37,15 @@
   color: var(--high-contrast);
   margin-top: 2px;
   margin-bottom: 12px;
+}
+
+@keyframes fade-in {
+  0% {
+    transform: translateY(-5px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

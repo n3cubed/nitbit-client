@@ -7,10 +7,10 @@ export interface IconProps {
   alt: string,
   href?: string,
   width?: number,
-  doDisplayHref?: boolean,
+  doDisplayAlt?: boolean,
 }
 
-const Icon: React.FC<IconProps & { children?: string }> = ({ name, alt, href, width, doDisplayHref, children }) => {
+const Icon: React.FC<IconProps & { children?: string }> = ({ name, alt, href, width, doDisplayAlt, children }) => {
   const iconWidth = width ? `${width}px` : '1em';
 
   const IconComponent = require(`../../public/assets/icons/${name}`).default;
@@ -18,9 +18,9 @@ const Icon: React.FC<IconProps & { children?: string }> = ({ name, alt, href, wi
 
   if (href) {
     return (
-        <Link href={href} className={`${doDisplayHref ? styles.display : ''}`}>
+        <Link href={href} className={`${doDisplayAlt ? styles.display : ''}`}>
           {icon}
-          {doDisplayHref ? href.replace("https://", "") : null}
+          <span>{doDisplayAlt ? alt : null}</span>
         </Link>
       );
     }

@@ -1,0 +1,30 @@
+* title: Fishsticks
+* postName: fishsticks
+* lastUpdated: 14/9/2024
+* category: Release
+* url: link.svg, nitbit.dev/fishsticks, https://nitbit.dev/fishsticks
+* url: github.svg, repo, https://github.com/ncubed1/fishsticks
+* summary: No. 1 physics app (on credit).
+* author: me
+*
+{P}
+  A 2D physics simulation app that runs in the browser. This app is supposed to be a learning tool. It helps to visualise physics problems dynamically and solve many problems, approximately, by building it in simulation.
+{P}
+  "Many problems" mostly refers to problems that can be simulated with a small number of objects (i.e. problems that are abstracted) and problems that demonstrate first principles concepts. Basically problems found in textbooks.
+{P}
+  v1 will be limited to 2 dimensions and will focus on interface and classical mechanics. It will use the Rapier Physics Engine. The physics are reasonably accurate. More accuracy comes at the cost of performance.
+{P}
+  Todo list by priority, v1:
+  {OList}
+    Make the CLI easy to use and more complete.wow  wow
+    Write a command and keyboard shortcut guide.
+    Make the Plotter to generate graphs.
+    Make a GUI for some toggles.
+    Move physics part to webassembly.
+    Add polygon support (and other shapes)
+    Make the Drawer to handle all shapes
+    Add other mechanics (springs, pulleys, tension, friction...)
+    Make the Solver to handle all calculation things
+    Add more mechanics (angular kinematics...)
+{P}
+  v2 will explore other ideas like 3D and more mechanics and visuals (waves, fluid, light).

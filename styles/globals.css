@@ -26,6 +26,50 @@
 	src: url('../public/assets/fonts/AtkinsonHyperlegible-Regular.ttf') format('truetype');
 }
 
+@font-face {
+	font-family: 'Iosevka-SS14-extended';
+	font-stretch: normal;
+	font-style: normal;
+	src: url('../public/assets/fonts/iosevka-ss14-extended.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Space Grotesk Semibold';
+	font-stretch: normal;
+	font-style: normal;
+	src: url('../public/assets/fonts/SpaceGrotesk-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Space Grotesk Medium';
+	font-stretch: normal;
+	font-style: normal;
+	src: url('../public/assets/fonts/SpaceGrotesk-Medium.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Space Grotesk Light';
+	font-stretch: normal;
+	font-style: normal;
+	src: url('../public/assets/fonts/SpaceGrotesk-Light.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Space Grotesk';
+	font-stretch: normal;
+	font-style: normal;
+	src: url('../public/assets/fonts/SpaceGrotesk-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Outfit';
+	font-stretch: normal;
+	font-style: normal;
+	src: url('../public/assets/fonts/Outfit-Regular.ttf') format('truetype');
+}
+
+
+
 @media only screen and (min-width: 900px) {
   :root {
     --font-title:34px;
@@ -77,6 +121,11 @@
    --more-line-animation-name: oscillating-opacity;
 }
 
+body,html{
+  min-width:24em;
+  height:100%;
+  overflow-y: hidden;
+}
 
 body {
   background-color: var(--dark-background-color);
@@ -85,7 +134,26 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: left;
   font-family: 'Jost', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  transition: transform 200ms ease, font-size 100ms ease;
+}
+
+.toolbar {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width:100%;
+  padding-bottom:16px;
+  bottom: 0;
+  z-index:10;
+
+  background: linear-gradient(0deg, rgb(13, 16, 26, 0.7) 0%, rgb(13, 16, 26, 0.2) 60%, rgb(13, 16, 26, 0.1) 75%, transparent);
+  backdrop-filter: blur(0.2px);
 }

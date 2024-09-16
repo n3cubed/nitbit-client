@@ -1,0 +1,7 @@
+* title: Sample 1
+* postName: sample1
+* lastUpdated: 13/9/2024
+* category: Notes
+* summary: Sample 1.
+* author: me
+*

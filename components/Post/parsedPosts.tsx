@@ -1,9 +1,10 @@
 import { parseRawPost } from './postParser';
 
-export const posts = ['nitbit']
+// export const posts = ['nitbit', 'fishsticks', 'sample1', 'sample2', 'sample3', 'sample4', 'sample5', 'sample6', 'sample7', 'sample8', 'sample9', 'sample10', ]
+export const posts = ['nitbit', 'fishsticks']
 
 export const parsedPosts = posts.map((postname) => {
-  const rawContent = require(`../../posts/${postname}.txt`).default;
+  const rawContent = require(`@/posts/${postname}.txt`).default;
   return parseRawPost(rawContent);
 })
 

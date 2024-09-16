@@ -1,6 +1,6 @@
-import { posts, parsedPosts } from '../../../components/Post/parsedPosts'
+import { posts, parsedPosts } from '@/components/Post/parsedPosts'
 
-import Post from '../../../components/Post/Post'
+import Post from '@/components/Post/Post'
 
 export async function generateStaticParams() {
   return posts.map((postname) => ({

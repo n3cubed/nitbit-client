@@ -1,37 +1,20 @@
 * title: nitbit
 * postName: nitbit
-* lastUpdated: updated 2 months ago
+* lastUpdated: 15/9/2024
 * category: Release
 * url: link.svg, nitbit.dev, https://nitbit.dev
-* url: github.svg, nitbit.dev, https://github.com
+* url: github.svg, repo, https://github.com/ncubed1/nitbit
 * summary: Personal website to showcase stuff.
 * author: me
 *
-WIP. Things to add:
-{OList}
-  Show the path on the bottom left
-  Show github icon on the bottom right consistently
-  Sort by category
-  Post about fishsticks
-  Replace logo with graph
-  Work on the backend
-  Style the posts
 
-
-{Note}
-  Hello from note
-{Exhibit}
-  * title: Something
-  Hello from exhibit
-{UList}
-  listitem1
-  listitem2
-{Reveal}
-{RevealButton}
-{RevealContent}
-{CosmeticImage}
+{P}
+  w e b s i t e
+{P}
+  made by me
 {Distinct}
-  Distinct text
-{Hyperlink}
-{Code}
-  Code
+  wow
+  {CosmeticImage}
+    * name: minecraft_sample.png
+{P}
+  More updates coming

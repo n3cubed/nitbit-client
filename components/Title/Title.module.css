@@ -1,6 +1,17 @@
 .title {
-  font-family: 'Jost', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Jost';
   font-size: var(--font-title);
   color: var(--high-contrast);
-  letter-spacing: 10px;
+  letter-spacing: 9px;
+  /* animation: 200ms ease 0s 1 shrink forwards; */
+
+}
+
+@keyframes shrink {
+  0%{
+    letter-spacing: 14px;
+  }
+  100% {
+    letter-spacing: 9px;
+  }
 }

@@ -14,9 +14,20 @@
 
   user-select: none;
   cursor: pointer;
+  transition: transform 100ms ease, filter 50ms ease;
+  transform: translateY(0px);
 }
 
 .categorical-symbol.small {
   width: 0.9em;
   height: 0.9em;
+}
+
+.categorical-symbol.dark {
+  filter: brightness(0.6);
+  box-shadow: none;
+}
+
+.categorical-symbol:active {
+  transform: translateY(2px);
 }

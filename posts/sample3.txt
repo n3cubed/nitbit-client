@@ -1,0 +1,7 @@
+* title: Sample 3
+* postName: sample3
+* lastUpdated: 13/9/2024
+* category: Notes
+* summary: Sample 3.
+* author: me
+*

@@ -1,0 +1,27 @@
+.path {
+  font-size: var(--font-large);
+  color: var(--primary-color);
+  user-select: none;
+}
+
+.distinct {
+  color: var(--contrast) !important;
+}
+
+.path > a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  transition: color 200ms, text-decoration-color 300ms ease, text-underline-offset 100ms ease;
+  text-underline-offset: 0;
+}
+
+.path > a:hover {
+  color: var(--contrast) !important;
+  text-decoration: underline 2px;
+  text-underline-offset: 2px;
+}
+
+.divider {
+  margin: 0 2px;
+}

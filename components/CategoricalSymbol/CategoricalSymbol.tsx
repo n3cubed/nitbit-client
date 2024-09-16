@@ -3,6 +3,8 @@ import styles from './CategoricalSymbol.module.css'
 interface CategoricalSymbolProps {
   for: string,
   small?: boolean,
+  dark?: boolean
+  onClick?: () => void
 }
 
 interface Category {
@@ -25,12 +27,16 @@ const Categories: Record<string, Category> = {
   },
 };
 
-const CategoricalSymbol: React.FC<CategoricalSymbolProps> = ({ for: category, small }) => {
+const CategoricalSymbol: React.FC<CategoricalSymbolProps> = ({ for: category, small, dark, onClick }) => {
   return (
-    <div className={`${styles['categorical-symbol']} ${small ? styles.small : ''}`} style={{ backgroundColor: Categories[category].color }}>
-      {small ? '' : Categories[category].symbol}
+    <div
+      className={`${styles["categorical-symbol"]} ${small ? styles.small : ''} ${ dark ? styles.dark : ''}`}
+      style={{ backgroundColor: Categories[category].color }}
+      onClick={ onClick }
+    >
+      {small ? "" : Categories[category].symbol}
     </div>
-  )
+  );
 
 }
 
