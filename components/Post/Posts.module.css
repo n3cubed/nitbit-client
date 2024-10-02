@@ -1,7 +1,7 @@
 .posts-container {
   z-index:6;
   width:100%;
-  /* overflow-y: auto; */
+  overflow-y: auto;
   display: flex;
   justify-content: center;
   flex-grow:1;
@@ -47,14 +47,16 @@
 }
 
 .load-more-container {
-  width:100%;
+  /* width:100%; */
   position: absolute;
   bottom: -24px;
-  left: -30px;
+  left: 50%;
+  transform: translateX(-50%);
   transition: transform 200ms ease;
 }
 
 .load-more {
+  z-index:100;
   color: var(--contrast);
   font-family: 'Atkinson Hyperlegible';
   border-radius: 10px;

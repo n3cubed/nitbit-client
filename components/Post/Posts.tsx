@@ -24,7 +24,7 @@ const Posts: React.FC = () => {
   useEffect(() => {
     const handleResize = () => {
       if (containerRef.current && postsRef.current){
-        console.log(containerRef.current.clientHeight, postsRef.current.offsetTop);
+        // console.log(containerRef.current.clientHeight, postsRef.current.offsetTop);
         setHeight(containerRef.current.clientHeight - postsRef.current.offsetTop + containerRef.current.offsetTop);
       }
     };
@@ -59,7 +59,7 @@ const Posts: React.FC = () => {
       deltaScroll += event.deltaY
 
       if (deltaT > 1 && deltaScroll >= 0) {
-        const speed = deltaScroll / deltaT / 3
+        const speed = deltaScroll / deltaT / 2.5
         setScrollSpeed(speed);
         console.log('speed:', speed);
       }
@@ -84,7 +84,7 @@ const Posts: React.FC = () => {
           // const deltaT = Date.now() - startScrollTime
           const touch = event.touches[0];
           deltaScroll = startTouchY - touch.clientY
-          setScrollSpeed(deltaScroll / 140);
+          setScrollSpeed(deltaScroll / 40);
           // if (deltaT > 1 && deltaScroll >= 0) {
           //   setScrollSpeed(deltaScroll / deltaT * 1.2);
           //   console.log('speed:', deltaScroll / deltaT * 1.2);
@@ -126,7 +126,7 @@ const Posts: React.FC = () => {
       && isScrolledToBottom(containerRef.current)
       && currentTime - timeSinceLoadMoreRef.current > 200
     ) {
-      console.log({scrollSpeed})
+      // console.log({scrollSpeed})
       setLoadMoreTranslateY(Math.max(-scrollSpeed * 14, -40));
       if (scrollSpeed > 3) {
         timeSinceLoadMoreRef.current = currentTime;
@@ -209,25 +209,25 @@ const Posts: React.FC = () => {
         <div ref={postsRef} className={styles.posts}>
           {posts}
         </div>
-        {filteredSortedPosts.length > 0 && (
-          <div
-            key="loadmore"
-            className={styles['load-more-container']}
-            style={{
-              transform: `translateY(${loadMoreTranslateY}px)`,
-            }}
-          >
-            <div className={styles['load-more']}>
-              <Icon
-                name='angle-down-solid.svg'
-                alt='loading...'
-                width={24}
-                >
-              </Icon>
-            </div>
-          </div>
-        )}
       </div>
+      {filteredSortedPosts.length > 0 && (
+        <div
+          key="loadmore"
+          className={styles['load-more-container']}
+          style={{
+            transform: `translateX(-50%) translateY(${loadMoreTranslateY}px)`,
+          }}
+        >
+          <div className={styles['load-more']}>
+            <Icon
+              name='angle-down-solid.svg'
+              alt='loading...'
+              width={24}
+              >
+            </Icon>
+          </div>
+        </div>
+      )}
     </div>
   );
 
