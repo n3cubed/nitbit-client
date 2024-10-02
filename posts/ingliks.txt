@@ -1,0 +1,9 @@
+* title: iŋgliks
+* postName: ingliks
+* lastUpdated: 17/9/2024
+* category: Release
+* url: link.svg, nitbit.dev/ingliks, https://nitbit.dev/ingliks
+* url: github.svg, repo, https://github.com/n3cubed/ingliks
+* summary: put something here
+* author: e
+*

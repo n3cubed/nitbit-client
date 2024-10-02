@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  images: {
-    unoptimized: true
-  },
+  // output: 'export',
+  output: "standalone",
+  // distDir: '../out',
+  // images: {
+  //   unoptimized: true
+  // },
   reactStrictMode: false,
   webpack(config) {
     // config.resolve = {

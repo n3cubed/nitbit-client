@@ -40,8 +40,8 @@
   font-family:"Jost";
   background-color: var(--background-color);
   color:var(--primary-color);
-  overflow-y:hidden;
-  overflow-x:hidden;
+  /* overflow-y:hidden; */
+  /* overflow-x:hidden; */
   position:relative;
   min-height: calc(100% - 20px);
   animation: 400ms ease 0s 1 fade-in;
@@ -111,13 +111,11 @@
   position:relative;
 }
 
-
-
-.cosmetic-image {
+.inline-image {
   position:relative;
 }
 
-.cosmetic-image > img {
+.inline-image > img {
   position:relative;
   bottom:2px;
   vertical-align:middle;
@@ -128,21 +126,22 @@
   border-width:1.6px;
   border-color: var(--contrast);
   border-style: dashed;
+  width:auto;
 }
 
-.cosmetic-image.large > img:hover ~ .enlarged{
+.inline-image.large > img:hover ~ .enlarged{
   opacity: 1;
   height: 100px;
   visibility:visible;
 }
 
-.cosmetic-image > img:hover ~ .enlarged {
+.inline-image > img:hover ~ .enlarged {
   opacity: 1;
   height: 30px;
   visibility:visible;
 }
 
-.cosmetic-image > .enlarged {
+.inline-image > .enlarged {
   opacity:0.8;
   z-index:9;
   visibility: hidden;
@@ -156,7 +155,7 @@
   border-style: dashed;
 }
 
-.cosmetic-image > .enlarged:hover {
+.inline-image > .enlarged:hover {
   opacity:1;
 }
 
@@ -171,17 +170,79 @@
   color:var(--high-contrast-dark);
 }
 
+.code-container {
+  position:relative;
+  height:max-content;
+  max-width:max-content;
+}
+.code-container.wide {
+  max-width: none;
+}
+
 .code {
+  font-family: "Iosevka SS07 Web";
+  font-size:var(--font-default);
+  padding:3px;
+  border-radius:3px;
+  overflow-x: auto;
+  padding:8px 8px;
+  max-width:100%;
+}
+
+
+/* width */
+.code::-webkit-scrollbar {
+  /* width: 3px; */
+  height:8px;
+}
+
+/* Track */
+.code::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius:3px;
+}
+
+/* Handle */
+.code::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius:3px;
+}
+
+/* Handle on hover */
+.code::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+.code-background {
+  z-index:-1;
+  background: #2E3440;
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  border-radius:6px;
+  top: 0;
+  padding:0 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.code-background.wide {
+  padding:0;
+  width: calc(100vw - 1em);
+  min-width: 100%;
+}
+
+.inline-code {
   user-select: all;
-  font-family: "Roboto Mono";
-  font-size:var(--font-small);
-  color: var(--background-color);
+  font-family: "Iosevka SS07 Web";
+  font-size:var(--font-default);
+  color: var(--dark-background-color);
   padding:3px;
   border-radius:3px;
   background-color: var(--contrast);
 }
 
-.note .code {
+.note .inline-code {
   color: darkorange;
   background-color: var(--contrast-dark);
 }
@@ -253,6 +314,11 @@
   border-style: solid;
   border-color: rgba(255, 153, 0, 0.4) #ffffff00;
   box-shadow: 0 1px 1px rgba(0,0,0,0.25), -1px 1px 1px rgba(0,0,0,0.18);
+}
+
+.group {
+  padding: 0;
+  margin: 0;
 }
 
 

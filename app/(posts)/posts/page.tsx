@@ -3,7 +3,11 @@
 import Posts from "@/components/Post/Posts";
 
 const PostsPage: React.FC = () => {
-  return <Posts />
+  return (
+    <>
+      <Posts />
+    </>
+  )
 };
 
 export default PostsPage;

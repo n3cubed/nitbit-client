@@ -8,6 +8,7 @@ import { getFilterBy, Filter, getAdditionalPosts } from '@/utils/states';
 import { toDate } from '@/utils/time';
 import Icon from '@/components/Icon/Icon';
 
+
 const Posts: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const postsRef = useRef<HTMLDivElement>(null);
@@ -100,7 +101,6 @@ const Posts: React.FC = () => {
     };
 
 
-
     window.addEventListener('wheel', handleScrollMouse);
     window.addEventListener('touchstart', handleScrollTouch);
 
@@ -161,7 +161,7 @@ const Posts: React.FC = () => {
 
   let posts = [];
   if (filteredSortedPosts.length === 0) {
-    for (let i = 0; i < (height) / 63 - 1; i++) {
+    for (let i = 0; i < (height - 50) / 63 - 1; i++) {
       posts.push(<div key={i} className={styles.nothing}>null</div>)
     }
   } else {

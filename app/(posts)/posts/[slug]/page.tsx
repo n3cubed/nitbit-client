@@ -9,9 +9,11 @@ export async function generateStaticParams() {
 }
 
 const PostPage: React.FC<{ params: { slug: string }}> = ({ params }) => {
-  const post = parsedPosts.filter((parsedPost) => parsedPost.properties.postName === params.slug)[0];
+  let post = parsedPosts.filter((parsedPost) => parsedPost.properties.postName === params.slug)[0];
+  let postComponent = post.generateComponent();
+
   return (
-    <Post post={post}></Post>
+    <Post post={postComponent}></Post>
   );
 }
 

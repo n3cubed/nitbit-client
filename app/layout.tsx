@@ -25,7 +25,7 @@ export default function RootLayout({
             <Path></Path>
           </div>
           <div style={{ padding: '0 20px' }}>
-            <Icon name='github.svg' alt='github' href='https://github.com/ncubed1' width={30} />
+            <Icon color='red' name='github.svg' alt='github' href='https://github.com/n3cubed' width={30} />
           </div>
         </div>
       </body>

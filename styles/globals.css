@@ -68,6 +68,15 @@
 	src: url('../public/assets/fonts/Outfit-Regular.ttf') format('truetype');
 }
 
+@font-face {
+	font-family: 'Iosevka SS07 Web';
+	font-display: swap;
+	font-weight: 400;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('../public/assets/fonts/IosevkaSS07-Regular.woff2') format('woff2');
+}
+
 
 
 @media only screen and (min-width: 900px) {

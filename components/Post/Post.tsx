@@ -1,9 +1,23 @@
-import { Section } from './postParser'
+'use client'
+import "@/styles/nord.css";
+// import { Section } from './postParser'
+import hljs from 'highlight.js/lib/common';
+import { useEffect } from "react";
+const Post: React.FC<{ post: React.ReactNode }> = ({ post }) => {
+	// const postComponent = post;
 
-const Post: React.FC<{ post: Section }> = ({ post }) => {
-	const postComponent = post.generateComponent();
+	useEffect(() => {
+		hljs.highlightAll();
+	});
 
-	return <>{postComponent}</>
+
+	return (
+	<>
+		{post}
+	</>
+
+
+	)
 }
 
 export default Post;

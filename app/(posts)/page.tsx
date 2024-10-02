@@ -61,7 +61,7 @@ const Home: React.FC = () => {
             filter: 'brightness(0) invert(1)',
           }}
         >
-          <Icon name='arrow-up-right-light2.svg' alt='expand' width={20}></Icon>
+          <Icon name='arrow-up-right-light.svg' alt='expand' width={20}></Icon>
         </div>
 
         {/* <div style={{ position: 'relative', paddingRight: '20px' }}>

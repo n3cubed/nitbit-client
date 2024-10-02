@@ -4,10 +4,12 @@ import { IconProps } from '../Icon/Icon';
 import { timeAgo } from '@/utils/time';
 import Image from 'next/image';
 
+
 export class Section {
   tag: Tag;
   content: Array<string | Section>;
   properties: { [key: string]: any };
+
 
   constructor(
     tag: Tag,
@@ -105,31 +107,64 @@ export class Section {
       // case Tag.Reveal:
       // case Tag.RevealButton:
       // case Tag.RevealContent:
-      case Tag.CosmeticImage:
+      case Tag.InlineImage:
         return (
-          <span className={`${styles['cosmetic-image']} ${this.properties.large ? styles['large'] : ''}`}>
+          <span className={`${styles['inline-image']} ${this.properties.large ? styles['large'] : ''}`}>
           &nbsp;
-            <img
+            <Image
               src={`/assets/media/posts/nitbit/${this.properties.name}`}
               alt={this.properties.alt}
-            ></img>
+              width={300}
+              height={300}
+            ></Image>
           &nbsp;
-            <img
+            <Image
               className={styles.enlarged}
               src={`/assets/media/posts/nitbit/${this.properties.name}`}
               alt={this.properties.alt}
-            ></img>
+              width={300}
+              height={300}
+              // style={{ width: 'auto', height: 'auto' }}
+            ></Image>
             {buildChildren()}
           </span>
         );
       case Tag.Distinct:
-        return <span className={styles.distinct}>{buildChildren()}</span>;
+        return <span className={styles.distinct}>{buildChildren()}</span>
       case Tag.Hyperlink:
         return (
-          <a className="hyperlink" href={this.properties.url}>
+          <a className={styles.hyperlink} href={this.properties.url}>
             {buildChildren()}
           </a>
         );
+      case Tag.Code:
+        // const lang = this.properties.lang;
+        return (
+          <div className={styles['code-container']}>
+            <pre className={styles.code}>
+              <code>{buildChildren()}</code>
+            </pre>
+            <div className={styles['code-background']}></div>
+          </div>
+        );
+      case Tag.CodeWide:
+        // const lang = this.properties.lang;
+        return (
+          <div className={`${styles['code-container']} ${styles.wide}`}>
+            <pre className={styles.code}>
+              <code>{buildChildren()}</code>
+            </pre>
+            <div className={`${styles['code-background']} ${styles.wide}`}></div>
+          </div>
+        );
+      case Tag.InlineCode:
+        return <code className={styles['inline-code']}>{buildChildren()}</code>
+      case Tag.Italics:
+        return <i>{buildChildren()}</i>
+      case Tag.Bold:
+        return <b>{buildChildren()}</b>
+      case Tag.Group:
+        return <div className={styles.group}>{buildChildren()}</div>
     }
   }
 }
@@ -144,22 +179,90 @@ enum Tag {
   Reveal,
   RevealButton,
   RevealContent,
-  CosmeticImageLarge,
-  CosmeticImage,
+  InlineImageLarge,
+  InlineImage,
   Distinct,
   Hyperlink,
   Code,
+  CodeWide,
+  InlineCode,
+  Italics,
+  Bold,
+  Group,
 }
 
 function countIndents(line: string): number {
   const leadingSpaces = line.match(/^\s*/)?.[0].length || 0;
+
   return Math.floor(leadingSpaces / 2);
+}
+
+
+function parseString(input: string): Array<string | Section> {
+  const boldRegex = /\*\*([^*]+)\*\*/g;
+  const italicsRegex = /\*([^*]+)\*/g;
+  const codeRegex = /\`([^`]+)\`/g;
+  const distinctRegex = /\!\*([^`]+)\*\!/g;
+
+  const result: Array<string | Section> = [];
+
+  // Combine all regexes to identify any tag in the input
+  const combinedRegex = new RegExp(`${boldRegex.source}|${italicsRegex.source}|${codeRegex.source}|${distinctRegex.source}`, 'g');
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  // Iterate through all matches
+  while ((match = combinedRegex.exec(input)) !== null) {
+    // Add the plain text before the tag (if any)
+    if (match.index > lastIndex) {
+      result.push(input.slice(lastIndex, match.index));
+    }
+
+    // Identify the type of tag and push to result
+    let tag, content;
+    if (match[1]) {
+      tag = Tag.Bold
+      content = match[1];
+      // Bold match
+    } else if (match[2]) {
+      // Italics match
+      tag = Tag.Italics
+      content = match[2];
+    } else if (match[3]) {
+      // Code match
+      tag = Tag.InlineCode
+      content = match[3];
+    } else if (match[4]) {
+      // Code match
+      tag = Tag.Distinct
+      content = match[4];
+    }
+    if (tag && content) {
+      const newSection: Section = new Section(
+        tag,
+        [content],
+        {}
+      );
+      result.push(newSection);
+    }
+
+    lastIndex = combinedRegex.lastIndex;
+  }
+
+  // Add any remaining plain text after the last tag
+  if (lastIndex < input.length) {
+    result.push(input.slice(lastIndex));
+  } else {
+    result.push('');
+  }
+
+  return result;
 }
 
 export function parseRawPost(input: string): Section {
   const result = new Section(Tag.Body, [], {});
 
-  const tagRegex = /\{([^}]*)\}/;
+  const tagRegex = /^§([^]*)/;
 
   let stack: Section[] = [];
   let currentSection: Section = result;
@@ -170,10 +273,12 @@ export function parseRawPost(input: string): Section {
   for (let [index, line] of lines.entries()) {
     const currentIndent = countIndents(line);
     // console.log(line)
-    line = line.trim();
 
-    if (line.startsWith("*")) {
-      const [key, ...rest] = line.slice(2).split(": ");
+
+    let trimmedLine = line.trim()
+
+    if (trimmedLine.startsWith("*")) {
+      const [key, ...rest] = trimmedLine.slice(2).split(": ");
       if (key && rest) {
         const value = rest.join(": ");
         if (key === "url") {
@@ -202,17 +307,17 @@ export function parseRawPost(input: string): Section {
       currentSectionIndent = currentIndent - 1;
     }
 
-    if (currentIndent > currentSectionIndent + 1)
-      throw new Error(
-        `No tag found on line ${index + 1} at indent ${
-          currentSectionIndent + 1
-        }`
-      );
 
-    const match = line.match(tagRegex);
+    let match = trimmedLine.match(tagRegex);
     if (match) {
-      const tag = match[1];
-      if (!(tag in Tag)) throw new Error(`No tag defined for ${tag}`);
+      if (currentIndent > currentSectionIndent + 1)
+        throw new Error(
+          `No tag found on line ${index + 1} at indent ${
+            currentSectionIndent + 1
+          }`
+        );
+      let tag = match[1];
+      if (!(tag in Tag)) throw new Error(`No tag defined for ${tag} on line ${index + 1}`);
 
       if (currentIndent === currentSectionIndent + 1)
         stack.push(currentSection);
@@ -227,7 +332,16 @@ export function parseRawPost(input: string): Section {
 
       currentSectionIndent = currentIndent;
     } else {
-      currentSection.content.push(line);
+      line = line.substring((currentSectionIndent + 1) * 2);
+      line = line.replace(/\r$/, '');
+
+      // add \n for block of text
+      let prevContent = currentSection.content.at(-1);
+      if (typeof prevContent === 'string') {
+        line = '\n' + line;
+      }
+      let contents = parseString(line)
+      currentSection.content = currentSection.content.concat(contents);
     }
   }
   // console.dir(result)

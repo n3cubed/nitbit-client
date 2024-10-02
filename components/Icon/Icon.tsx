@@ -8,13 +8,15 @@ export interface IconProps {
   href?: string,
   width?: number,
   doDisplayAlt?: boolean,
+  color?: string,
 }
 
-const Icon: React.FC<IconProps & { children?: string }> = ({ name, alt, href, width, doDisplayAlt, children }) => {
+const Icon: React.FC<IconProps & { children?: string }> = ({ name, alt, href, width, doDisplayAlt, color, children }) => {
   const iconWidth = width ? `${width}px` : '1em';
+  const iconColor = color ? color : 'blue';
 
   const IconComponent = require(`../../public/assets/icons/${name}`).default;
-  const icon = <IconComponent className={styles.icon} style={{ width: iconWidth }} />;
+  const icon = <IconComponent className={styles.icon} style={{ width: iconWidth, color: iconColor }} />;
 
   if (href) {
     return (

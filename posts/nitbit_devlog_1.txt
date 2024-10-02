@@ -1,0 +1,26 @@
+* title: Nitbit Devlog #1
+* postName: nitbit_devlog_1
+* lastUpdated: 3/10/2024
+* category: Devlog
+* url: link.svg, nitbit.dev, https://nitbit.dev
+* url: github.svg, repo, https://github.com/n3cubed/nitbit
+* summary: Features for posts and other updates.
+* author: me
+*
+
+
+
+§Group
+  1. Code snippets using !*highlight.js*!
+  §CodeWide
+    * lang: javascript
+    return (
+      <div className={styles['code-container']}>
+        <pre className={styles.code}>
+          <code>{buildChildren()}</code>
+        </pre>
+        <div className={styles['code-background']}></div>
+      </div>
+    );
+§P
+  2. Inline **bold**, *italics*, `code`, !*distinct*!
