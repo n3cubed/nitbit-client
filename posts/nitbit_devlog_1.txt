@@ -10,7 +10,10 @@
 §OList
   * start: 1
   §P2
-    Code snippets using !*highlight.js*!
+    Code snippets using
+    §Hyperlink
+      * url: , highlight.js, https://highlightjs.org/
+
 §CodeWide
   * lang: javascript
   return (

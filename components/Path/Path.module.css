@@ -10,6 +10,7 @@
 
 .path > a {
   color: var(--primary-color);
+  text-shadow: 1px 1px 3px var(--dark-background-color);
   text-decoration: none;
   font-family: 'Atkinson Hyperlegible', sans-serif;
   transition: color 200ms, text-decoration-color 300ms ease, text-underline-offset 100ms ease;

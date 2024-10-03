@@ -9,13 +9,14 @@
 *
 
 §P
-  w e b s i t e
+  w e b s i te
 §P
   made by me
-§Distinct
-  wow
-  §InlineImage
-    * name: minecraft_sample.png
-  wow
+§P
+  §Distinct
+    wow
+    §InlineImage
+      * name: minecraft_sample.png
+    wow
 §P
   More updates coming

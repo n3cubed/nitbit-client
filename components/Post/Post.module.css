@@ -1,6 +1,6 @@
 @media only screen and (min-width: 900px) {
   .article {
-    margin: auto;
+    margin: 0 auto;
     width: min(75%, 900px);
   }
   .last-updated-date{
@@ -63,6 +63,7 @@
   min-height: calc(100% - 20px);
   animation: 400ms ease 0s 1 fade-in;
   padding-bottom: 100px;
+  height:max-content;
   min-height:max-content;
 }
 
@@ -224,7 +225,7 @@
   border-radius:3px;
   overflow-x: auto;
   padding:8px 8px;
-  padding-bottom: 3px;
+  padding-bottom: 5px;
   max-width:100%;
 }
 
@@ -358,6 +359,22 @@
 .group {
   padding: 0;
   margin: 0;
+}
+
+.hyperlink {
+  --download-link-background: rgb(159, 90, 216);
+  color: var(--link);
+  text-decoration: none;
+  position:relative;
+  text-underline-offset: 0;
+  transition: color 200ms 50ms, text-decoration-color 350ms ease, text-underline-offset 200ms ease-out 50ms;
+  text-decoration: underline 2px transparent;
+}
+
+.hyperlink:hover {
+  text-decoration-color: var(--contrast);
+  color: var(--high-contrast);
+  text-underline-offset: 3px;
 }
 
 

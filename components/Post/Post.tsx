@@ -11,15 +11,10 @@ const Post: React.FC<{ post: React.ReactNode }> = ({ post }) => {
 		hljs.highlightAll();
 	});
 
-
 	return (
-		// <div className={styles.post}>
 		<>
 			{post}
 		</>
-		// </div>
-
-
 	)
 }
 

@@ -133,6 +133,7 @@
 body,html{
   min-width:24em;
   height:100%;
+  overflow: visible;
 }
 
 body {
