@@ -1,0 +1,7 @@
+* title: Robot Arm Devlog #1
+* postName: robot_arm_devlog_1
+* lastUpdated: 3/10/2024
+* category: Devlog
+* summary: 1 week of making a robot arm simulation
+* author: me
+*

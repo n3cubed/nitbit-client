@@ -61,7 +61,7 @@ const Posts: React.FC = () => {
       if (deltaT > 1 && deltaScroll >= 0) {
         const speed = deltaScroll / deltaT / 2.5
         setScrollSpeed(speed);
-        console.log('speed:', speed);
+        // console.log('speed:', speed);
       }
     };
 

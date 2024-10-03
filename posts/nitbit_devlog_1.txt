@@ -7,20 +7,47 @@
 * summary: Features for posts and other updates.
 * author: me
 *
-
-
-
-§Group
-  1. Code snippets using !*highlight.js*!
-  §CodeWide
-    * lang: javascript
-    return (
-      <div className={styles['code-container']}>
-        <pre className={styles.code}>
-          <code>{buildChildren()}</code>
-        </pre>
-        <div className={styles['code-background']}></div>
-      </div>
-    );
-§P
-  2. Inline **bold**, *italics*, `code`, !*distinct*!
+§OList
+  * start: 1
+  §P2
+    Code snippets using !*highlight.js*!
+§CodeWide
+  * lang: javascript
+  return (
+    <div className={styles['code-container']}>
+      <pre className={styles.code}>
+        <code>{buildChildren()}</code>
+      </pre>
+      <div className={styles['code-background']}></div>
+    </div>
+  );
+§OList
+  * start: 2
+  §P2
+    Inline **bold**, *italics*, `code`, !*distinct*!
+§OList
+  * start: 3
+  §P2
+    Inline image
+    §InlineImage
+      * name: ok.png
+§OList
+  * start: 4
+  §P2
+    Image 🐄
+§Image
+  * name: cow.png
+  * alt: cow
+  * width: 300px
+§OList
+  * start: 5
+  §P2
+    Video 🐛
+§Video
+  * name: cool-bug-facts.mp4
+§OList
+  * start: 6
+  §P2
+    External video 🍩
+§VideoExt
+  * id: DSeVzFZJK34

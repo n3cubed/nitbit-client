@@ -5,7 +5,7 @@
 
   background-color: var(--very-high-contrast);
   position:relative;
-  padding: 50px 0;
+  padding: min(5vh, 50px) 0;
   /* padding-bottom:80px; */
   display: flex;
   flex-direction: row;

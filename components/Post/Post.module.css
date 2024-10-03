@@ -18,7 +18,16 @@
   .details{
     animation: 400ms ease 0ms 1 slide-down-2;
   }
+  .p {
+    text-align: justify;
+    text-align-last: center;
+  }
+  .o-list {
+    width: min(55%, 500px);
+    margin: 0 auto;
+  }
 }
+
 @media only screen and (max-width: 900px) {
   .article {
     padding:10px 5%;
@@ -31,8 +40,17 @@
     flex-direction: row;
     justify-content: space-around;
   }
+  .p {
+    text-align:left;
+  }
+}
 
+.li {
+  margin-bottom: 0.3em
+}
 
+.p2 {
+  text-align:left;
 }
 
 .article {
@@ -40,11 +58,12 @@
   font-family:"Jost";
   background-color: var(--background-color);
   color:var(--primary-color);
-  /* overflow-y:hidden; */
+  /* overflow-y:; */
   /* overflow-x:hidden; */
-  position:relative;
   min-height: calc(100% - 20px);
   animation: 400ms ease 0s 1 fade-in;
+  padding-bottom: 100px;
+  min-height:max-content;
 }
 
 .article p{
@@ -159,6 +178,25 @@
   opacity:1;
 }
 
+.video {
+  display: block;
+  border: 2px dashed white;
+  width: min(500px, 100%);
+  margin: auto;
+}
+
+.video-ext {
+  display: block;
+  margin: auto;
+  width: min(500px, 100%);
+}
+
+.image {
+  margin: auto;
+  border: 1px dashed white;
+  display: block;
+}
+
 .distinct {
   word-break:break-all;
   user-select: all;
@@ -186,6 +224,7 @@
   border-radius:3px;
   overflow-x: auto;
   padding:8px 8px;
+  padding-bottom: 3px;
   max-width:100%;
 }
 
@@ -228,7 +267,7 @@
 
 .code-background.wide {
   padding:0;
-  width: calc(100vw - 1em);
+  width: calc(100vw - 1.4em);
   min-width: 100%;
 }
 

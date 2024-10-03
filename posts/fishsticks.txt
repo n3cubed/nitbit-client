@@ -13,18 +13,19 @@
   "Many problems" mostly refers to problems that can be simulated with a small number of objects (i.e. problems that are abstracted) and problems that demonstrate first principles concepts. Basically problems found in textbooks.
 §P
   v1 will be limited to 2 dimensions and will focus on interface and classical mechanics. It will use the Rapier Physics Engine. The physics are reasonably accurate. More accuracy comes at the cost of performance.
-§P
+
+§P2
   Todo list by priority, v1:
-  §OList
-    Make the CLI easy to use and more complete.
-    Write a command and keyboard shortcut guide.
-    Make the Plotter to generate graphs.
-    Make a GUI for some toggles.
-    Move physics part to webassembly.
-    Add polygon support (and other shapes)
-    Make the Drawer to handle all shapes
-    Add other mechanics (springs, pulleys, tension, friction...)
-    Make the Solver to handle all calculation things
-    Add more mechanics (angular kinematics...)
+§OList
+   Make the CLI easy to use and more complete.
+  Write a command and keyboard shortcut guide.
+  Make the Plotter to generate graphs.
+  Make a GUI for some toggles.
+  Move physics part to webassembly.
+  Add polygon support (and other shapes)
+  Make the Drawer to handle all shapes
+  Add other mechanics (springs, pulleys, tension, friction...)
+  Make the Solver to handle all calculation things
+  Add more mechanics (angular kinematics...)
 §P
   v2 will explore other ideas like 3D and more mechanics and visuals (waves, fluid, light).

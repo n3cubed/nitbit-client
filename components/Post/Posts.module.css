@@ -48,7 +48,8 @@
 
 .load-more-container {
   /* width:100%; */
-  position: absolute;
+  /* position: absolute; */
+  position:fixed;
   bottom: -24px;
   left: 50%;
   transform: translateX(-50%);
@@ -64,4 +65,29 @@
   width: max-content;
   margin: 0 auto;
   text-shadow: rgb(13, 16, 26, 0.7);
+}
+
+/* width */
+.posts-container::-webkit-scrollbar {
+  width:8px;
+  padding-top:10px;
+}
+
+/* Track */
+.posts-container::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius:3px;
+  padding-top:10px;
+}
+
+/* Handle */
+.posts-container::-webkit-scrollbar-thumb {
+  padding-top:10px;
+  background: var(--contrast);
+  border-radius:3px;
+}
+
+/* Handle on hover */
+.posts-container::-webkit-scrollbar-thumb:hover {
+  background: var(--high-contrast);
 }

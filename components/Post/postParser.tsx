@@ -4,6 +4,7 @@ import { IconProps } from '../Icon/Icon';
 import { timeAgo } from '@/utils/time';
 import Image from 'next/image';
 
+let postNameLabel: string;
 
 export class Section {
   tag: Tag;
@@ -25,7 +26,7 @@ export class Section {
     // console.log(this.tag)
     const buildChildren = (
       itemCallback?: (
-        parseItem: () => React.ReactNode,
+        parseItem: (item: string | Section) => React.ReactNode,
         item: string | Section,
         index: number
       ) => React.ReactNode
@@ -33,13 +34,15 @@ export class Section {
       return (
         <>
           {this.content.map((item, index) => {
-            function parseItem() {
-              if (typeof item === "string") return <>{item}</>;
+            function parseItem(item: string | Section) {
+              if (typeof item === "string") {
+                return   <span style={{ whiteSpace: 'pre-wrap' }}>{item}</span>;
+              }
               else return item.generateComponent();
             }
             const result = itemCallback
               ? itemCallback(parseItem, item, index)
-              : parseItem();
+              : parseItem(item);
             return <React.Fragment key={index}>{result}</React.Fragment>;
           })}
         </>
@@ -57,6 +60,7 @@ export class Section {
           summary,
           author,
         } = this.properties;
+        postNameLabel = postName
         const lastUpdatedAgo = timeAgo(lastUpdated);
         return (
           <div className={styles["article"]}>
@@ -77,7 +81,9 @@ export class Section {
         );
 
       case Tag.P:
-        return <p>{buildChildren()}</p>
+        return <p className={styles.p}>{buildChildren()}</p>
+      case Tag.P2:
+        return <p className={styles.p2}>{buildChildren()}</p>
 
       case Tag.Note:
         return (
@@ -90,9 +96,10 @@ export class Section {
         return <div className={styles.exhibit}>{buildChildren()}</div>;
       case Tag.OList:
         return (
-          <ol className={styles["o-list"]}>
+          <ol start={this.properties.start} className={styles["o-list"]}>
             {buildChildren((parseItem, item, index) => {
-              return <li>{parseItem()}</li>;
+              item = typeof item === 'string' ? item.trim() : item
+              return <li className={styles.li}>{parseItem(item)}</li>;
             })}
           </ol>
         );
@@ -100,7 +107,8 @@ export class Section {
         return (
           <ul className={styles["u-list"]}>
             {buildChildren((parseItem, item, index) => {
-              return <li>{parseItem()}</li>;
+              item = typeof item === 'string' ? item.trim() : item
+              return <li>{parseItem(item)}</li>;
             })}
           </ul>
         );
@@ -112,7 +120,7 @@ export class Section {
           <span className={`${styles['inline-image']} ${this.properties.large ? styles['large'] : ''}`}>
           &nbsp;
             <Image
-              src={`/assets/media/posts/nitbit/${this.properties.name}`}
+              src={`/assets/media/posts/${postNameLabel}/${this.properties.name}`}
               alt={this.properties.alt}
               width={300}
               height={300}
@@ -120,15 +128,48 @@ export class Section {
           &nbsp;
             <Image
               className={styles.enlarged}
-              src={`/assets/media/posts/nitbit/${this.properties.name}`}
+              src={`/assets/media/posts/${postNameLabel}/${this.properties.name}`}
               alt={this.properties.alt}
               width={300}
               height={300}
-              // style={{ width: 'auto', height: 'auto' }}
             ></Image>
             {buildChildren()}
           </span>
         );
+      case Tag.Image:
+        return (
+          <Image
+            className={styles.image}
+            src={`/assets/media/posts/${postNameLabel}/${this.properties.name}`}
+            alt={this.properties.alt}
+            width={300}
+            height={300}
+            style={{ width: this.properties.width, height: 'auto' }}
+          >
+          </Image>
+
+        )
+      case Tag.Video:
+        return (
+          <div>
+            <video className={styles.video} controls>
+              <source src={`/assets/media/posts/${postNameLabel}/${this.properties.name}`}/>
+              Your browser cannot show this video.
+            </video>
+          </div>
+        )
+      case Tag.VideoExt:
+        return (
+          <iframe
+            className={styles['video-ext']}
+            width="300"
+            height="300"
+            src={`https://www.youtube.com/embed/${this.properties.id}`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title="Embedded youtube"
+          />
+        )
       case Tag.Distinct:
         return <span className={styles.distinct}>{buildChildren()}</span>
       case Tag.Hyperlink:
@@ -172,6 +213,7 @@ export class Section {
 enum Tag {
   Body,
   P,
+  P2,
   Note,
   Exhibit,
   OList,
@@ -181,6 +223,9 @@ enum Tag {
   RevealContent,
   InlineImageLarge,
   InlineImage,
+  Image,
+  Video,
+  VideoExt,
   Distinct,
   Hyperlink,
   Code,
@@ -189,6 +234,7 @@ enum Tag {
   Italics,
   Bold,
   Group,
+
 }
 
 function countIndents(line: string): number {
