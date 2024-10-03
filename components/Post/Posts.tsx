@@ -15,6 +15,7 @@ const Posts: React.FC = () => {
   const [height, setHeight] = useState<number>(400);
   const { filterBy, setFilterBy } = getFilterBy();
   const { additionalPosts, setAdditionalPosts } = getAdditionalPosts();
+  const [ numPosts, setNumPosts ] = useState(0);
   const [ updateState, setUpdateState ] = useState({});
   const [ scrollSpeed, setScrollSpeed ] = useState(0);
   const [ loadMoreTranslateY, setLoadMoreTranslateY ] = useState(0);
@@ -84,7 +85,7 @@ const Posts: React.FC = () => {
           // const deltaT = Date.now() - startScrollTime
           const touch = event.touches[0];
           deltaScroll = startTouchY - touch.clientY
-          setScrollSpeed(deltaScroll / 40);
+          setScrollSpeed(deltaScroll / 10);
           // if (deltaT > 1 && deltaScroll >= 0) {
           //   setScrollSpeed(deltaScroll / deltaT * 1.2);
           //   console.log('speed:', deltaScroll / deltaT * 1.2);
@@ -118,22 +119,22 @@ const Posts: React.FC = () => {
   function scrollToBottom(element: HTMLElement) {
     element.scrollTop = element.scrollHeight
   }
-
   useEffect(() => {
     const currentTime = Date.now()
     if (
       containerRef.current
       && isScrolledToBottom(containerRef.current)
-      && currentTime - timeSinceLoadMoreRef.current > 200
+      && currentTime - timeSinceLoadMoreRef.current > 400
     ) {
       // console.log({scrollSpeed})
+
       setLoadMoreTranslateY(Math.max(-scrollSpeed * 14, -40));
       if (scrollSpeed > 3) {
         timeSinceLoadMoreRef.current = currentTime;
         setTimeout(()=> {
           setLoadMoreTranslateY(0);
           setAdditionalPosts((prev: number) => prev + 3);
-        }, 200)
+        }, 500)
       }
     }
   }, [scrollSpeed, setAdditionalPosts])
@@ -159,6 +160,9 @@ const Posts: React.FC = () => {
   })();
 
 
+  useEffect(()=>{
+    setNumPosts(filteredSortedPosts.length);
+  },[filteredSortedPosts])
   let posts = [];
   if (filteredSortedPosts.length === 0) {
     for (let i = 0; i < (height - 50) / 63 - 1; i++) {
@@ -218,9 +222,10 @@ const Posts: React.FC = () => {
             transform: `translateX(-50%) translateY(${loadMoreTranslateY}px)`,
           }}
         >
+          <div style={{ opacity: Number(Boolean(loadMoreTranslateY)) }} className={styles['num-posts']}>{numPosts}</div>
           <div className={styles['load-more']}>
             <Icon
-              name='angle-down-solid.svg'
+              name='angle-down-sharp.svg'
               alt='loading...'
               width={24}
               >

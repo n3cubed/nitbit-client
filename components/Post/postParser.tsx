@@ -4,7 +4,9 @@ import { IconProps } from '../Icon/Icon';
 import { timeAgo } from '@/utils/time';
 import Image from 'next/image';
 
+
 let postNameLabel: string;
+let repoLink: string = "https://github.com/n3cubed", setRepoLink: any;
 
 export class Section {
   tag: Tag;
@@ -36,7 +38,7 @@ export class Section {
           {this.content.map((item, index) => {
             function parseItem(item: string | Section) {
               if (typeof item === "string") {
-                return   <span style={{ whiteSpace: 'pre-wrap' }}>{item}</span>;
+                return <span style={{ whiteSpace: 'pre-wrap' }}>{item}</span>;
               }
               else return item.generateComponent();
             }
@@ -125,7 +127,6 @@ export class Section {
               width={300}
               height={300}
             ></Image>
-          &nbsp;
             <Image
               className={styles.enlarged}
               src={`/assets/media/posts/${postNameLabel}/${this.properties.name}`}
@@ -144,7 +145,7 @@ export class Section {
             alt={this.properties.alt}
             width={300}
             height={300}
-            style={{ width: this.properties.width, height: 'auto' }}
+            style={{ maxWidth: this.properties.width, height: 'auto' }}
           >
           </Image>
 
@@ -180,7 +181,6 @@ export class Section {
             <a className={styles.hyperlink} href={this.properties.urls[0].href}>
               {this.properties.urls[0].alt}{buildChildren()}
             </a>
-            &nbsp;
           </>
         );
       case Tag.Code:
@@ -209,6 +209,8 @@ export class Section {
         return <i>{buildChildren()}</i>
       case Tag.Bold:
         return <b>{buildChildren()}</b>
+      case Tag.Weird:
+        return <span className={styles.weird}>{buildChildren()}</span>
       case Tag.Group:
         return <div className={styles.group}>{buildChildren()}</div>
     }
@@ -238,8 +240,8 @@ enum Tag {
   InlineCode,
   Italics,
   Bold,
+  Weird,
   Group,
-
 }
 
 function countIndents(line: string): number {
@@ -254,11 +256,12 @@ function parseString(input: string): Array<string | Section> {
   const italicsRegex = /\*([^*]+)\*/g;
   const codeRegex = /\`([^`]+)\`/g;
   const distinctRegex = /\!\*([^`]+)\*\!/g;
+  const weirdRegex = /\~([^`]+)\~/g;
 
   const result: Array<string | Section> = [];
 
   // Combine all regexes to identify any tag in the input
-  const combinedRegex = new RegExp(`${boldRegex.source}|${italicsRegex.source}|${codeRegex.source}|${distinctRegex.source}`, 'g');
+  const combinedRegex = new RegExp(`${boldRegex.source}|${italicsRegex.source}|${codeRegex.source}|${distinctRegex.source}|${weirdRegex.source}`, 'g');
   let lastIndex = 0;
   let match: RegExpExecArray | null;
 
@@ -287,6 +290,10 @@ function parseString(input: string): Array<string | Section> {
       // Code match
       tag = Tag.Distinct
       content = match[4];
+    } else if (match[5]) {
+      // Code match
+      tag = Tag.Weird
+      content = match[5];
     }
     if (tag && content) {
       const newSection: Section = new Section(

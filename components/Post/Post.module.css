@@ -19,12 +19,15 @@
     animation: 400ms ease 0ms 1 slide-down-2;
   }
   .p {
-    text-align: justify;
+    text-align: center;
     text-align-last: center;
   }
   .o-list {
-    width: min(55%, 500px);
+    width: min(60%, 650px);
     margin: 0 auto;
+  }
+  .image, .video, .video-ext {
+    margin: auto;
   }
 }
 
@@ -183,17 +186,15 @@
   display: block;
   border: 2px dashed white;
   width: min(500px, 100%);
-  margin: auto;
 }
 
 .video-ext {
   display: block;
-  margin: auto;
   width: min(500px, 100%);
 }
 
 .image {
-  margin: auto;
+  width: min(500px, 100%);
   border: 1px dashed white;
   display: block;
 }
@@ -377,7 +378,44 @@
   text-underline-offset: 3px;
 }
 
+.weird {
+  background:
+   linear-gradient(45deg,rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%)
+   0 0/100% 200%;
+  animation: rainbow 5s linear infinite, clip 8s linear infinite;
+  user-select: all;
+  /* font-family: "Iosevka SS07 Web"; */
+  font-size:var(--font-default);
+  color: var(--dark-background-color);
+  padding:1px 3px;
+  border-radius:3px;
+  clip-path: polygon(45% 2%, 75% 13%, 100% 13%, 100% 60%, 85% 93%, 50% 100%, 23% 89%, 0 92%, 5% 43%, 0 11%);
+  background-color: var(--contrast);
+}
 
+@keyframes rainbow {
+  to {background-position:200% 200%}
+}
+@keyframes clip {
+  0% {
+    clip-path: polygon(45% 2%, 75% 13%, 100% 13%, 100% 60%, 85% 93%, 50% 100%, 23% 89%, 0 92%, 5% 43%, 0 11%);
+  }
+  20% {
+    clip-path: polygon(50% 5%, 80% 10%, 100% 25%, 90% 65%, 80% 90%, 55% 95%, 25% 80%, 5% 85%, 10% 45%, 5% 20%);
+  }
+  40% {
+    clip-path: polygon(40% 10%, 65% 20%, 95% 20%, 85% 70%, 70% 95%, 45% 98%, 20% 88%, 0 80%, 15% 40%, 10% 10%);
+  }
+  60% {
+    clip-path: polygon(55% 0%, 70% 12%, 100% 20%, 85% 65%, 70% 85%, 50% 100%, 35% 90%, 10% 70%, 5% 40%, 0% 15%);
+  }
+  80% {
+    clip-path: polygon(48% 5%, 78% 15%, 95% 18%, 100% 60%, 85% 90%, 50% 98%, 28% 80%, 0 85%, 10% 50%, 0 18%);
+  }
+  100% {
+    clip-path: polygon(45% 2%, 75% 13%, 100% 13%, 100% 60%, 85% 93%, 50% 100%, 23% 89%, 0 92%, 5% 43%, 0 11%);
+  }
+}
 @keyframes fade-in {
   0% {
     opacity:0;

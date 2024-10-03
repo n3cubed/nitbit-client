@@ -20,14 +20,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         {children}
-        <div className='toolbar'>
-          <div style={{ padding: '0 20px' }}>
-            <Path></Path>
-          </div>
-          <div style={{ padding: '0 20px' }}>
-            <Icon name='github.svg' alt='github' href='https://github.com/n3cubed' width={30} />
-          </div>
-        </div>
       </body>
     </html>
   );

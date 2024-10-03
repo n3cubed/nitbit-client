@@ -14,7 +14,7 @@
 §P
   v1 will be limited to 2 dimensions and will focus on interface and classical mechanics. It will use the Rapier Physics Engine. The physics are reasonably accurate. More accuracy comes at the cost of performance.
 
-§P2
+§P
   Todo list by priority, v1:
 §OList
    Make the CLI easy to use and more complete.

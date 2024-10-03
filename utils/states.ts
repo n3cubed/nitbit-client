@@ -1,3 +1,4 @@
+'use client'
 import { useState, useEffect } from 'react';
 
 const useWindowHeight = () => {
@@ -22,7 +23,6 @@ export interface Filter {
 }
 
 let filterBy: Filter = {}, setFilterBy: any;
-let additionalPosts: number = 0, setAdditionalPosts: any;
 
 export const getFilterBy = () => {
   return { filterBy, setFilterBy };
@@ -32,10 +32,20 @@ export const useFilterBy = () => {
   [filterBy, setFilterBy] = useState<Filter>({});
 };
 
+let additionalPosts: number = 0, setAdditionalPosts: any;
 export const getAdditionalPosts = () => {
   return { additionalPosts, setAdditionalPosts };
 }
 
 export const useAdditionalPosts = () => {
   [additionalPosts, setAdditionalPosts] = useState(0);
+};
+
+let repoLink: string = "https://github.com/n3cubed", setRepoLink: any;
+export const getRepoLink = () => {
+  return { repoLink, setRepoLink };
+};
+
+export const useRepoLink = () => {
+  [repoLink, setRepoLink] = useState("https://github.com/n3cubed");
 };

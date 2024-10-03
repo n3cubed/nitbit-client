@@ -44,8 +44,8 @@ const Home: React.FC = () => {
           <MainButton color='#38ac54' text='***WIP***' href='/' />
         </div>
 
+        <ActivityGraph />
         <div style={{ flexGrow: 1, marginLeft: '20px', marginRight: '50px' }}>
-          <ActivityGraph />
         </div>
 
         <div

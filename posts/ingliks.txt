@@ -4,6 +4,6 @@
 * category: Release
 * url: link.svg, nitbit.dev/ingliks, https://nitbit.dev/ingliks
 * url: github.svg, repo, https://github.com/n3cubed/ingliks
-* summary: put something here
+* summary: A so called "language" designed specifically for making English spelling better. (American iŋgliks mostly not supported. Cry about it)
 * author: e
 *

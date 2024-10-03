@@ -7,12 +7,17 @@
 * summary: Features for posts and other updates.
 * author: me
 *
+
+§P
+  This is the first devlog of many. I mostly just made changes for posts and other general things. Here are the main things I added (and some memes).
+
 §OList
   * start: 1
   §P2
     Code snippets using
     §Hyperlink
       * url: , highlight.js, https://highlightjs.org/
+    . The hardest part was figuring out which theme to use.
 
 §CodeWide
   * lang: javascript
@@ -27,25 +32,34 @@
 §OList
   * start: 2
   §P2
-    Inline **bold**, *italics*, `code`, !*distinct*!
+    Inline semantics: **bold**, *italics*, `code`, !*distinct*!. Since I made the parser myself I can add as many ~weird~ things as I want.
 §OList
   * start: 3
   §P2
-    Inline image
+    Inline image because sometimes we just can't
     §InlineImage
       * name: ok.png
+     the right words.
 §OList
   * start: 4
   §P2
-    Image 🐄
-§Image
-  * name: cow.png
-  * alt: cow
-  * width: 300px
+    Images
+§P
+  Cursed image 🐄
+  §Image
+    * name: cow.png
+    * alt: cow
+    * width: 300px
+§P
+  Teeny Tennis 🥜🎾
+  §Image
+    * name: teeny-tennis.jpg
+    * alt: teeny tennis
+    * width: 400px
 §OList
   * start: 5
   §P2
-    Video 🐛
+    Videos 🐛
 §Video
   * name: cool-bug-facts.mp4
 §OList

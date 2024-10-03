@@ -51,6 +51,9 @@
   /* position: absolute; */
   position:fixed;
   bottom: -24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   left: 50%;
   transform: translateX(-50%);
   transition: transform 200ms ease;
@@ -59,12 +62,19 @@
 .load-more {
   z-index:100;
   color: var(--contrast);
-  font-family: 'Atkinson Hyperlegible';
   border-radius: 10px;
   cursor: pointer;
   width: max-content;
   margin: 0 auto;
   text-shadow: rgb(13, 16, 26, 0.7);
+}
+
+.num-posts {
+  position:relative;
+  bottom:-6px;
+  font-family: 'Outfit';
+  font-size:var(--font-large);
+  color: var(--contrast);
 }
 
 /* width */
