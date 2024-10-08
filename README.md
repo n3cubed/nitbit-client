@@ -25,10 +25,8 @@ npm run start
 ```bash
 docker pull n3cubed/nitbit-client
 
-docker run \
-  -p 3000:3000
-  -v ~/Desktop/nitbit_static:/app/.next/static \
-  n3cubed/nitbit-client
+docker run -p 3000:3000 -d n3cubed/nitbit-client
+# or for auto updates with watchtower,
+# download docker-compose.yml
+docker compose up -d
 ```
-
-Static files should be placed in the static folder on the host machine

@@ -2,6 +2,7 @@
   .article {
     margin: 0 auto;
     width: min(75%, 900px);
+    text-align: center;
   }
   .last-updated-date{
     transform: translateX(50%);
@@ -19,11 +20,12 @@
     animation: 400ms ease 0ms 1 slide-down-2;
   }
   .p {
-    text-align: center;
+    text-align: justify;
     text-align-last: center;
   }
-  .o-list {
-    width: min(60%, 650px);
+  .o-list, .u-list {
+    /* width: min(60%, 650px); */
+    width: max-content;
     margin: 0 auto;
   }
   .image, .video, .video-ext {
@@ -48,7 +50,15 @@
   }
 }
 
+
+
+  .sub-header {
+    text-align: center;
+    font-family: 'Space Grotesk Light';
+  }
+
 .li {
+  text-align:left;
   margin-bottom: 0.3em
 }
 
@@ -195,7 +205,7 @@
 
 .image {
   width: min(500px, 100%);
-  border: 1px dashed white;
+  /* border: 1px dashed white; */
   display: block;
 }
 

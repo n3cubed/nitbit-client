@@ -22,7 +22,7 @@ const nextConfig = {
     });
     config.module.rules.push({
       test: /\.txt$/,
-      use: 'raw-loader', // Use 'raw-loader' to import the text content as a string
+      use: 'raw-loader',
     });
     return config;
   },

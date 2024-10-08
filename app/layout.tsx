@@ -19,7 +19,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {children}
+        {/* <script data-domain="nitbit.dev" src="/stats/script.js  " data-api="/api/stats"></script> */}
+          {children}
       </body>
     </html>
   );

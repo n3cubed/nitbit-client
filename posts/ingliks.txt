@@ -1,9 +1,29 @@
 * title: iŋgliks
 * postName: ingliks
-* lastUpdated: 17/9/2024
+* lastUpdated: 3/10/2024
 * category: Release
-* url: link.svg, nitbit.dev/ingliks, https://nitbit.dev/ingliks
+* url: link.svg, iŋgliks translator, https://nitbit.dev/ingliks
 * url: github.svg, repo, https://github.com/n3cubed/ingliks
 * summary: A so called "language" designed specifically for making English spelling better. (American iŋgliks mostly not supported. Cry about it)
-* author: e
-*
+* author: AliNevada34
+
+§P
+  Iŋgliks is a "language" designed to make english spelling and reading better, aswell as making reading other language scripts relatively easier aswell. (Though it may be a bit cursed).
+
+§P
+  First off, Iŋgliks is designed by a British dude called AliNevada34 (Yes, British i know, scary) and his friend Qaz.
+  Iŋgliks does support almost any language, in it's own cursed way. However it's main priority is, well, obviously... British English☕☕. Though American English is also supported within this "language".
+
+§P
+  Anyways onto the actual story on why I decided to make this better (but cursed) "language".
+  I've seen my fair share of videos on youtube of people claiming to have "fixed English spelling".
+  Well, you see. Adding letters for 'th', 'sh' and 'ch', removing "c", "q", "x" and silent letters IS definitely improving English, I wouldn't necessarily say it's "fixed".
+
+§P
+  The main issue English really has is the VOWELS. Think of it, we have A LOT of vowel sounds, and yet we only have five letters to display them? What makes Iŋgliks different from all of those other videos on youtube is it's design in vowels and how much simpler they are (as long as you know the basic rules and how to pronounce them).
+
+§P
+  It's not only just the vowels though, obviously the general stuff has been fixed like "sh", "th", removing "c" "q" and "x". Talking about "c", "q" and "x" and how they are currently commiting IDENTITY THEFT. Videos I see on the internet just outright REMOVE them.
+
+§P
+  Instead of just destroying these beautiful shapes for letters, why don't we reuse them for other common sounds like "sh" or "ch"?

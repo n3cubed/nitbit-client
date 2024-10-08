@@ -62,6 +62,7 @@ export class Section {
           summary,
           author,
         } = this.properties;
+        console.log(`==> compiling ${postName}`)
         postNameLabel = postName
         const lastUpdatedAgo = timeAgo(lastUpdated);
         return (
@@ -82,6 +83,8 @@ export class Section {
           </div>
         );
 
+      case Tag.SubHeader:
+        return <h2 className={styles['sub-header']}>{buildChildren()}</h2>
       case Tag.P:
         return <p className={styles.p}>{buildChildren()}</p>
       case Tag.P2:
@@ -96,24 +99,21 @@ export class Section {
         );
       case Tag.Exhibit:
         return <div className={styles.exhibit}>{buildChildren()}</div>;
-      case Tag.OList:
+      case Tag.Ol:
         return (
-          <ol start={this.properties.start} className={styles["o-list"]}>
-            {buildChildren((parseItem, item, index) => {
-              item = typeof item === 'string' ? item.trim() : item
-              return <li className={styles.li}>{parseItem(item)}</li>;
-            })}
-          </ol>
+          <ol start={this.properties.start} className={styles["o-list"]}>{buildChildren()}</ol>
+            // {buildChildren((parseItem, item, index) => {
+            //   item = typeof item === 'string' ? item.trim() : item
+            //   return <li className={styles.li}>{parseItem(item)}</li>;
+            // })}
         );
-      case Tag.UList:
+      case Tag.Ul:
         return (
-          <ul className={styles["u-list"]}>
-            {buildChildren((parseItem, item, index) => {
-              item = typeof item === 'string' ? item.trim() : item
-              return <li>{parseItem(item)}</li>;
-            })}
-          </ul>
+          <ul className={styles["u-list"]}>{buildChildren()}</ul>
         );
+      case Tag.Li:
+          return <li className={styles.li}>{buildChildren()}</li>;
+
       // case Tag.Reveal:
       // case Tag.RevealButton:
       // case Tag.RevealContent:
@@ -174,7 +174,6 @@ export class Section {
       case Tag.Distinct:
         return <span className={styles.distinct}>{buildChildren()}</span>
       case Tag.Hyperlink:
-        console.log(this.properties.urls[0].alt)
         return (
           <>
             &nbsp;
@@ -219,12 +218,14 @@ export class Section {
 
 enum Tag {
   Body,
+  SubHeader,
   P,
   P2,
   Note,
   Exhibit,
-  OList,
-  UList,
+  Ol,
+  Ul,
+  Li,
   Reveal,
   RevealButton,
   RevealContent,
@@ -252,62 +253,46 @@ function countIndents(line: string): number {
 
 
 function parseString(input: string): Array<string | Section> {
-  const boldRegex = /\*\*([^*]+)\*\*/g;
-  const italicsRegex = /\*([^*]+)\*/g;
-  const codeRegex = /\`([^`]+)\`/g;
-  const distinctRegex = /\!\*([^`]+)\*\!/g;
-  const weirdRegex = /\~([^`]+)\~/g;
+  const patterns = [
+    { regex: /\*\*([^*]+)\*\*/, tag: Tag.Bold },
+    { regex: /\*([^*]+)\*/, tag: Tag.Italics },
+    { regex: /\`([^`]+)\`/, tag: Tag.InlineCode },
+    { regex: /\^([^^]+)\^/, tag: Tag.Distinct },
+    { regex: /\~([^~]+)\~/, tag: Tag.Weird },
+    { regex: /^- (.*)/, tag: Tag.Li }
+  ];
 
   const result: Array<string | Section> = [];
-
-  // Combine all regexes to identify any tag in the input
-  const combinedRegex = new RegExp(`${boldRegex.source}|${italicsRegex.source}|${codeRegex.source}|${distinctRegex.source}|${weirdRegex.source}`, 'g');
   let lastIndex = 0;
-  let match: RegExpExecArray | null;
 
-  // Iterate through all matches
+  // Create a combined regex pattern for all the cases
+  const combinedRegex = new RegExp(
+    patterns.map(({ regex }) => `(?:${regex.source})`).join('|'),
+    'g'
+  );
+
+  // Match tags using the combined regex
+  let match: RegExpExecArray | null;
   while ((match = combinedRegex.exec(input)) !== null) {
-    // Add the plain text before the tag (if any)
+    // Push plain text before the match
     if (match.index > lastIndex) {
       result.push(input.slice(lastIndex, match.index));
     }
 
-    // Identify the type of tag and push to result
-    let tag, content;
-    if (match[1]) {
-      tag = Tag.Bold
-      content = match[1];
-      // Bold match
-    } else if (match[2]) {
-      // Italics match
-      tag = Tag.Italics
-      content = match[2];
-    } else if (match[3]) {
-      // Code match
-      tag = Tag.InlineCode
-      content = match[3];
-    } else if (match[4]) {
-      // Code match
-      tag = Tag.Distinct
-      content = match[4];
-    } else if (match[5]) {
-      // Code match
-      tag = Tag.Weird
-      content = match[5];
-    }
-    if (tag && content) {
-      const newSection: Section = new Section(
-        tag,
-        [content],
-        {}
-      );
-      result.push(newSection);
-    }
+    // Find which pattern matched and create a section for it
+    patterns.forEach(({ regex, tag }, i) => {
+      if (match) {
+        const groupMatch = match[i + 1]; // Shifted by 1 for capture group
+        if (groupMatch) {
+          result.push(new Section(tag, [...parseString(groupMatch)], {}));
+        }
+      }
+    });
 
     lastIndex = combinedRegex.lastIndex;
   }
 
-  // Add any remaining plain text after the last tag
+  // Push remaining plain text after the last tag
   if (lastIndex < input.length) {
     result.push(input.slice(lastIndex));
   } else {
@@ -320,7 +305,8 @@ function parseString(input: string): Array<string | Section> {
 export function parseRawPost(input: string): Section {
   const result = new Section(Tag.Body, [], {});
 
-  const tagRegex = /^§([^]*)/;
+  const tagRegex = /^§(.*)/;
+  const propsRegex = /^\* ([^:]+): (.+)$/;
 
   let stack: Section[] = [];
   let currentSection: Section = result;
@@ -330,15 +316,12 @@ export function parseRawPost(input: string): Section {
 
   for (let [index, line] of lines.entries()) {
     const currentIndent = countIndents(line);
-    // console.log(line)
-
-
     let trimmedLine = line.trim()
 
-    if (trimmedLine.startsWith("*")) {
-      const [key, ...rest] = trimmedLine.slice(2).split(": ");
-      if (key && rest) {
-        const value = rest.join(": ");
+    if (propsRegex.test(trimmedLine)) {
+      const match = trimmedLine.match(propsRegex);
+      if (match) {
+        const [_, key, value] = match;
         if (key === "url") {
           const urlProps = value.split(", ");
           const url: IconProps = {
@@ -357,8 +340,6 @@ export function parseRawPost(input: string): Section {
     // console.log({currentIndent})
     if (currentIndent <= currentSectionIndent) {
       const diff = currentSectionIndent - currentIndent;
-      // console.log({diff})
-
       stack.splice(-diff, diff);
       currentSection = stack.pop() as Section;
 
@@ -395,11 +376,12 @@ export function parseRawPost(input: string): Section {
 
       // add \n for block of text
       let prevContent = currentSection.content.at(-1);
-      if (typeof prevContent === 'string') {
+      if (prevContent && typeof prevContent === 'string') {
         line = '\n' + line;
       }
-      let contents = parseString(line);
-      currentSection.content = currentSection.content.concat(contents);
+      let content = parseString(line);
+      currentSection.content.push(...content);
+      // currentSection.content = currentSection.content.concat(contents)
     }
   }
   // console.dir(result)

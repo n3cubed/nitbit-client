@@ -6,7 +6,7 @@
 * url: github.svg, repo, https://github.com/n3cubed/fishsticks
 * summary: No. 1 physics app (on credit).
 * author: me
-*
+
 §P
   A 2D physics simulation app that runs in the browser. This app is supposed to be a learning tool. It helps to visualise physics problems dynamically and solve many problems, approximately, by building it in simulation.
 §P
@@ -16,16 +16,16 @@
 
 §P
   Todo list by priority, v1:
-§OList
-   Make the CLI easy to use and more complete.
-  Write a command and keyboard shortcut guide.
-  Make the Plotter to generate graphs.
-  Make a GUI for some toggles.
-  Move physics part to webassembly.
-  Add polygon support (and other shapes)
-  Make the Drawer to handle all shapes
-  Add other mechanics (springs, pulleys, tension, friction...)
-  Make the Solver to handle all calculation things
-  Add more mechanics (angular kinematics...)
+§Ol
+  - Make the CLI easy to use and more complete.
+  - Write a command and keyboard shortcut guide.
+  - Make the Plotter to generate graphs.
+  - Make a GUI for some toggles.
+  - Move physics part to webassembly.
+  - Add polygon support (and other shapes)
+  - Make the Drawer to handle all shapes
+  - Add other mechanics (springs, pulleys, tension, friction...)
+  - Make the Solver to handle all calculation things
+  - Add more mechanics (angular kinematics...)
 §P
   v2 will explore other ideas like 3D and more mechanics and visuals (waves, fluid, light).

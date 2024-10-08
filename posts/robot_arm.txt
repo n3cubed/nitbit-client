@@ -1,7 +1,120 @@
 * title: Robot Arm Devlog #1
 * postName: robot_arm_devlog_1
-* lastUpdated: 3/10/2024
+* lastUpdated: 7/10/2024
 * category: Devlog
-* summary: 1 week of making a robot arm simulation
+* summary: 1 week of making a robot arm simulation.
 * author: me
-*
+
+§P
+  I want to make a robot arm. What does it take? Inverse kinematics and motors. I figured the best approach was to work with the software part first, and simulate the entire arm before actually making it. That's the topic of this post.
+
+
+§SubHeader
+  Plan
+§P
+  Seeing the problem in 3D is way more convenient than printing out number spam and trying to sift through it for errors. I never used Three.js before, but for my crude implementation it was more than enough and quite simple (until I had to work with rotations).
+§P
+  For the calculations I could have done it entirely in JavaScript, but I was getting tired of that language (honestly, who isn't). So, I decided to do it with WebAssembly in Rust. The idea is to have everything, including computations, conveniently in the browser without a server backend. When it comes to it, I can easily extend the system to connect via Wi-Fi with the microcontroller that controls the actual robot. That also means I can put off having to deal with embedded until I start building the robot.
+
+
+§SubHeader
+  Inverse Kinematics
+§P
+  So, what is inverse kinematics? Why is it even called kinematics, does it have anything to do with physics? According to Wikipedia,
+  §Hyperlink
+    * url: , forward kinematics, https://en.wikipedia.org/wiki/Forward_kinematics
+   refers to *"the use of the kinematic equations of a robot to compute the position of the end-effector from specified values for the joint parameters"*. End-effector means end of the arm. So, given the position (and rotation) of the end of the arm,
+  §Hyperlink
+    * url: , inverse kinematics, https://en.wikipedia.org/wiki/Inverse_kinematics
+   computes the rotation parameters of the joints to reach that position.
+
+§P
+  In robotics, the joint parameters are described by Denavit-Hartenberg (D-H) parameters, which is an n×4 matrix where n is the number of joints of the arm, specifying four parameters for each joint ^d^, ^a^, ^α^, ^θ^.
+§P
+  This is how I describe each parameter, using the Three.js coordinate system:
+§Ul
+  - ^d^ - up/y-axis offset
+  - ^a^ - x-axis/z-axis offset
+  - ^α^ - rotation about x-axis/z-axis
+  - ^θ^ - rotation about up/y-axis
+
+§Image
+  * name: axes.png
+  * alt: axes
+  * width: 500px
+Coordinate systems. Left: Three.js, right: others.
+§Hyperlink
+  * url: , Source, https://stackoverflow.com/questions/8272297/three-js-rotate-projection-so-that-the-y-axis-becomes-the-z-axis
+
+§P
+  Offsets and rotations are relative to the previous joint and rotations are intrinsic meaning each joint has its own set of rotation axes which change when the joint rotates. That also means the sequence of intrinsic rotations is important. Read more on
+  §Hyperlink
+    * url: , Euler angles, https://en.wikipedia.org/wiki/Euler_angles
+  . The axes aren't that important and depend on your implementation. You can play with D-H parameters
+  §Hyperlink
+    * url: , here (1), https://vis-ro.web.app/robotics/dh-model
+   or
+  §Hyperlink
+    * url: , here (2), https://tools.glowbuzzer.com/kinviz
+  .
+§Video
+  * name: 1.arm.mp4
+Static arm with D-H parameters.
+§P
+  IK can be done analytically (by solving) vs numerically (by approximation) vs heuristically (e.g. FABRIK). For my robot, I used a numerical approach called Jacobian inverse technique (more below and on the IK Wikipedia page) and followed
+  §Hyperlink
+    * url: , this, https://github.com/dbddqy/visual_kinematics
+   Python implementation.
+§Video
+  * name: 2.ik.mp4
+First implementation.
+
+§P
+  In the first implementation, the arm follows the camera's position mirrored along the x and z axis. I was creating a new arm instance for every new position, leading to erratic movements, which I then fixed.
+§Video
+  * name: 3.ik-smooth.mp4
+Smoother motion.
+
+§SubHeader
+  Math
+§P
+  While I can try to explain what the math does, I can't fully explain why it does what it does (it has to do with velocities). In a later post, I'll make a more complete solution and explain in more detail.
+§P
+  The math is mostly trigonometry and linear linear algebra (matrix multiplication and cross products). Yay, linear algebra! It also involves quaternions if you're adventurous, but that was handled by nalgebra in my case. Here is how I understand it: the Jacobian ^J^ is a 6×n matrix which defines the axis of rotation ^R^ for each joint (per column of the matrix) such that rotating about that axis will bring the joint's z axis vector ^Z^ closer to the vector which points from it to the target end-effector. The first 3 rows specify the xyz components of ^R^. It represents the axis to rotate about to get to the target pose. The next 3 rows specify the xyz components of ^Z^, which can also be interpreted as the joint's contribution to the rotation of the end-effector. ^J^ × some rotations of joints (angular velocity) = translation and rotation of end-effector (linear and angular velocity). Probably.
+§P
+  The pseudo-inverse of the Jacobian ^J+^ is an n×6 matrix. It does the same thing as ^J^, just backwards. ^J+^ × translation and rotation of end-effector = rotations of joints. Thus, the multiplication of the pseudo-inverse (n×6) with the difference in position and rotation between the current and target end-effector (6×1) results in an n×1 vector of rotations ^dq^. The rotation reduces the error between the current and target end-effector and is added to ^θ^ of each joint. You can additionally multiply the rotations with a constant ^step_size^ to have more gradual movements.
+
+
+§P
+  Each joint should only rotate an angle ^θ^ about its up/y-axis, like a regular motor which can only rotate about one axis.
+§Video
+  * name: 4.different-axes.mp4
+Rotation axes.
+§P
+  That being said, there is something wrong with my implementation. Here, since the first link is inclined upwards, the second link should be also be inclined instead of being completely horizontal. I'll fix it eventually.
+
+§P
+  At each step, rotation from ^dq^ is added to the corresponding joint for every joint, then ^dq^ is calculated again, and it repeats until the end-effector falls within a margin of error. I refactored the code to return each step it takes.
+§P
+  Here I additionally decreased the step-size to make it extra smooth.
+§Video
+  * name: 5.ik-smoother.mp4
+Showing in-between frames (after n steps).
+§P
+  Linear transformations do the most mind-blowing things.
+§Video
+  * name: 6.steps.mp4
+Showing in-between in-between frames (after each step).
+
+§SubHeader
+  Problems
+§P
+  One problem I encountered was the browser freezing at certain positions. When I ran the same position through the Rust code it worked just fine and when I decreased the max iterations to 20 it ran fine in the browser. I thought it was a memory limitation in the browser at high iterations, but that didn't make sense. I found that sometimes converting a
+  §Hyperlink
+    * url: , rotation matrix, https://en.wikipedia.org/wiki/Rotation_matrix
+   to an angle returned NaN due to floating point error that made the input to acos more than 1. For some reason that caused an infinite loop somewhere in the nalgebra library.
+
+§P
+  Right now, each joint's position in the scene is determined by coordinates and not rotation of the previous joints. I plan to make the simulation as close to an actual robot arm as possible and that includes giving the links thickness and realistic offsets to account for the size of the motor. If possible, I want to add collision detection so the links don't intersect one another or another object in the scene. Unfortunately, I have no idea how to do that.
+§P
+  There are existing IK implementations in Rust, although not that many. I don't know what solution they used, so I'll look at those once I get a better understanding. There are far simpler, though more limited, ways to create a 3D robot arm with IK. Still, the numerical method is likely the best way to create a general solution for any number of joints for any axis of rotation and with collision detection. I plan figure out the math behind this method and then build on it, and maybe read a book on robotics. When I started, my goal was to build a robot arm simulation, but I also knew there could be a lot more to it than some trigonometry or a one-size-fits-all solution, and there is. Now my goal is to figure out linear algebra, read a book on robotics, design another Rust library for inverse kinematics, and then build a robot arm simulation. Maybe.
