@@ -1,5 +1,3 @@
-"use client"
-
 import Node from "./Node";
 import * as RAPIER from '@dimforge/rapier2d-compat';
 import styles from './Node.module.css';

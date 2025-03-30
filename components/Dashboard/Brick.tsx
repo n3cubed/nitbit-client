@@ -1,5 +1,3 @@
-"use client"
-
 import { timeAgoDate } from "@/utils/time";
 import Node from "./Node";
 import styles from './Node.module.css';

@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect } from 'react';
 import File from './File';
 
@@ -9,7 +11,7 @@ async function getFiles() {
   } catch (e) {
     console.log('error')
     return [{
-      name:" hi"
+      name: "WIP"
     }];
   }
 }

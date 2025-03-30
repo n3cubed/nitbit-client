@@ -6,7 +6,7 @@ const nextConfig = {
   // images: {
   //   unoptimized: true
   // },
-  reactStrictMode: false,
+  reactStrictMode: true,
   crossOrigin: 'anonymous',
   webpack(config) {
     // config.resolve = {

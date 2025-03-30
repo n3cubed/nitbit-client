@@ -1,3 +1,5 @@
+"use client"
+
 import styles from './Posts.module.css';
 import Title from '../Title/Title';
 import PostPreview from './PostPreview';

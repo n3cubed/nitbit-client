@@ -1,4 +1,3 @@
-"use client"
 import styles from './Node.module.css';
 import { Point } from './convexHull';
 import * as RAPIER from '@dimforge/rapier2d-compat';

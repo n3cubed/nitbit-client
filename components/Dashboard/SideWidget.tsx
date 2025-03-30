@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useEffect, createContext, useContext, MouseEventHandler, } from "react";
 import styles from "./Node.module.css";
 import { Brick, getEmbedCode } from "./Brick";

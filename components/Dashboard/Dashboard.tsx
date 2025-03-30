@@ -24,7 +24,10 @@ let cores: Core[] = [
   // new Core('Dimden', 'https://dimden.dev/rss.xml', 'https://dimden.dev/'),
   new Core('purple', 'https://purplesyringa.moe/blog/feed.rss', 'https://purplesyringa.moe/blog'),
   new Core('Jeff Geerling', 'https://www.jeffgeerling.com/blog.xml', 'https://www.jeffgeerling.com/blog'),
-  new Core('Paul Graham: Essays', 'http://www.aaronsw.com/2002/feeds/pgessays.rss', 'https://paulgraham.com/articles.html')
+  new Core('Paul Graham: Essays', 'http://www.aaronsw.com/2002/feeds/pgessays.rss', 'https://paulgraham.com/articles.html'),
+  new Core('Hedraweb', 'https://hedraweb.blogspot.com/feeds/posts/default', 'https://hedraweb.blogspot.com/'),
+  new Core('Wikipedia Featured', 'https://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=rss', 'https://en.wikipedia.org/wiki/Main_Page'),
+  new Core('Quanta Magazine', 'https://www.quantamagazine.org/feed/', 'https://www.quantamagazine.org/'),
 ];
 
 

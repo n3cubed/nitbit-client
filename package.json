@@ -30,7 +30,9 @@
     "@types/sanitize-html": "^2.13.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.9",
+    "postcss": "^8.5.3",
     "raw-loader": "^4.0.2",
+    "tailwindcss": "^4.0.17",
     "typescript": "5.6.2"
   }
 }
